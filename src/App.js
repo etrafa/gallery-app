@@ -1,24 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { useState } from "react";
+
+//components
+
+import Gallery from "./components/gallery/Gallery";
+import Home from "./components/home/Home";
+import UserProfile from "./components/userProfile/UserProfile";
+import SearchResult from "./components/home/SearchResult";
 
 function App() {
+  const [query, setQuery] = useState(undefined);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      {/* <Navbar /> */}
+      <Routes>
+        <Route path="/" element={<Home query={query} setQuery={setQuery} />} />
+        <Route path="/gallery" element={<Gallery />} />
+        <Route path="/user-profile" element={<UserProfile />} />
+        <Route path="/search" element={<SearchResult query={query} />} />
+      </Routes>
+    </Router>
   );
 }
 
