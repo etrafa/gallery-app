@@ -5,6 +5,11 @@ module.exports = {
       backgroundImage: {
         "home-background": "url('./components//home/assets/wallpaper.jpg')",
       },
+      colors: {
+        "icon-background": "#F7F4F1",
+        "icon-color": "#767676",
+        "heart-background": "#F15151",
+      },
     },
   },
   plugins: [],

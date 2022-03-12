@@ -1,7 +1,10 @@
+//components
+import UserInformation from "./UserInformation";
+
 const UserProfile = () => {
   return (
     <div>
-      <h2>UserProfile</h2>
+      <UserInformation />
     </div>
   );
 };
