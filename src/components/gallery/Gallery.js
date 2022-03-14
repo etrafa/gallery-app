@@ -8,8 +8,15 @@ import ImageGallery from "./ImageGallery";
 
 //styling
 import "./Gallery.css";
+import Modal from "../Modal/Modal";
 
-const Gallery = ({ pictures, setPictures }) => {
+const Gallery = ({
+  pictures,
+  setPictures,
+  setLargeImage,
+  largeImage,
+  setIndex,
+}) => {
   const apiKey = "cI86sWJtLf-QfrOGRr71mwxCDxz0xY1Lr7sC4Ae66yw";
   const [page, setPage] = useState(1);
 
@@ -22,9 +29,11 @@ const Gallery = ({ pictures, setPictures }) => {
         return resp.json();
       })
       .then((data) => {
-        console.log(data);
-        const pictureData = [...new Set(data.results)];
-        setPictures((prev) => [...prev, ...pictureData]);
+        // const pictureData = [...new Set(data.results)];
+        // setPictures((prev) => [...prev, ...pictureData]);
+        const pictureData = data.results;
+        const pictureArray = [...new Set(pictureData)];
+        setPictures((prev) => [...prev, ...pictureArray]);
       });
   }, [page]);
 
@@ -36,6 +45,7 @@ const Gallery = ({ pictures, setPictures }) => {
 
   return (
     <>
+      <Modal setIndex={setIndex} />
       <InfiniteScroll
         dataLength={pictures.length}
         next={() => setPage((prev) => prev + 1)}
@@ -49,7 +59,7 @@ const Gallery = ({ pictures, setPictures }) => {
           columnClassName="my-masonry-grid_column p-4"
         >
           {pictures.map((picture, index) => (
-            <ImageGallery props={picture} />
+            <ImageGallery props={picture} key={picture.id} />
           ))}
         </Masonry>
       </InfiniteScroll>

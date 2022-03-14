@@ -1,5 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+
 import { useState } from "react";
+import React from "react";
 
 //components
 import Gallery from "./components/gallery/Gallery";
@@ -17,27 +19,29 @@ function App() {
   const [nextImage, setNextImage] = useState(null);
   const [index, setIndex] = useState(0);
   const [pictures, setPictures] = useState([]);
-  console.log(index);
+  const [toggleModal, setToggleModal] = useState(false);
 
   return (
     <Router>
-      {largeImage && (
-        <Modal
-          largeImage={largeImage}
-          setLargeImage={setLargeImage}
-          uploaderImage={uploaderImage}
-          uploaderName={uploaderName}
-          setNextImage={setNextImage}
-          nextImage={nextImage}
-          index={index}
-          setIndex={setIndex}
-          pictures={pictures}
-        />
-      )}
-
       <Routes>
+        {/* <Route
+          path="/gallery2"
+          element={
+            <Modal
+              largeImage={largeImage}
+              setLargeImage={setLargeImage}
+              uploaderImage={uploaderImage}
+              uploaderName={uploaderName}
+              setNextImage={setNextImage}
+              nextImage={nextImage}
+              index={index}
+              setIndex={setIndex}
+              pictures={pictures}
+            />
+          }
+        /> */}
         <Route
-          path="/gallery-app/"
+          path="/gallery-app"
           element={<Home query={query} setQuery={setQuery} />}
         />
         <Route
@@ -45,28 +49,30 @@ function App() {
           element={
             <Gallery
               setLargeImage={setLargeImage}
+              largeImage={largeImage}
               setUploaderImage={setUploaderImage}
               setUploaderName={setUploaderName}
               setNextImage={setNextImage}
               setIndex={setIndex}
               pictures={pictures}
               setPictures={setPictures}
+              setToggleModal={setToggleModal}
             />
           }
         />
         <Route path="/user-profile" element={<UserProfile />} />
         <Route path="/search" element={<SearchResult query={query} />} />
         <Route
-          path="asdsadasdas"
           element={
             <ImageGallery
+              // setLargeImage={setLargeImage}
+              // setUploaderImage={setUploaderImage}
+              // setUploaderName={setUploaderName}
+              // setNextImage={setNextImage}
+              // setIndex={setIndex}
+              // pictures={pictures}
+              // setPictures={setPictures}
               setLargeImage={setLargeImage}
-              setUploaderImage={setUploaderImage}
-              setUploaderName={setUploaderName}
-              setNextImage={setNextImage}
-              setIndex={setIndex}
-              pictures={pictures}
-              setPictures={setPictures}
             />
           }
         />

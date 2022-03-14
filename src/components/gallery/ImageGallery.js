@@ -1,5 +1,4 @@
 import { useState } from "react";
-
 import {
   AiOutlineHeart,
   AiOutlinePlus,
@@ -9,10 +8,11 @@ import {
 const ImageGallery = ({
   props,
   index,
-  setLargeImage,
   setUploaderImage,
   setIndex,
   setUploaderName,
+  imageClickHandler,
+  setLargeImage,
 }) => {
   const [heartIcon, setHeartIcon] = useState(false);
 
@@ -20,12 +20,7 @@ const ImageGallery = ({
     <>
       <div className="group relative overflow-hidden">
         <img
-          onClick={() => {
-            setLargeImage(props.urls.full);
-            setUploaderImage(props.user.profile_image.medium);
-            setUploaderName(props.user.name);
-            setIndex(index);
-          }}
+          onClick={() => console.log("hey")}
           className="cursor-pointer hover:opacity-80 mt-4"
           src={props.urls.regular}
           alt={props.user.name}

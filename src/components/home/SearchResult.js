@@ -14,7 +14,7 @@ import ImageGallery from "../gallery/ImageGallery";
 const SearchResult = ({ query }) => {
   const apiKey = "cI86sWJtLf-QfrOGRr71mwxCDxz0xY1Lr7sC4Ae66yw";
   const [pictures, setPictures] = useState([]);
-  const [isFound, setIsFound] = useState(true);
+  const [notFound, setNotFound] = useState(true);
   const [page, setPage] = useState(1);
   const breakpoints = {
     default: 3,
@@ -32,12 +32,12 @@ const SearchResult = ({ query }) => {
         return resp.json();
       })
       .then((data) => {
-        const pictureData = [...new Set(data.results)];
-        setPictures((prev) => [...prev, ...pictureData]);
+        const pictureData = data.results;
+        const pictureArray = [...new Set(pictureData)];
+        setPictures((prev) => [...prev, ...pictureArray]);
+        if (data.length > 1) setNotFound(false);
       });
   }, [page]);
-
-  console.log(query);
 
   return (
     <>
@@ -55,10 +55,9 @@ const SearchResult = ({ query }) => {
         >
           {pictures &&
             pictures.map((picture) => {
-              return <ImageGallery props={picture} />;
-              setIsFound(false);
+              return <ImageGallery props={picture} key={picture.id} />;
             })}
-          {isFound && (
+          {notFound && (
             <h1 className=" text-3xl mt-40 mx-auto text-center font-bold">
               We're sorry. We couldn't find your search! 😢
             </h1>
