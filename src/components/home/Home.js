@@ -14,6 +14,7 @@ const Home = ({ query, setQuery }) => {
   ];
   const [index, setIndex] = useState(0);
 
+  // placeholder animation
   useEffect(() => {
     const timer = () => {
       setIndex((prevIndex) => {
@@ -49,7 +50,7 @@ const Home = ({ query, setQuery }) => {
       </Link>
       <Link to="/search">
         <button
-          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 mt-24 bg-zinc-800 text-white w-32 rounded-lg h-10"
+          className="absolute top-1/2 left-1/2 transform inset-0 -translate-x-1/2 -translate-y-1/2 mt-24 bg-zinc-800 text-white w-32 rounded-lg h-10"
           value={query}
         >
           Search

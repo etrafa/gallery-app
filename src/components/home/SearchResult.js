@@ -15,6 +15,7 @@ const SearchResult = ({ query }) => {
   const apiKey = "cI86sWJtLf-QfrOGRr71mwxCDxz0xY1Lr7sC4Ae66yw";
   const [pictures, setPictures] = useState([]);
   const [notFound, setNotFound] = useState(true);
+  const [moreResult, setMoreResult] = useState(false);
   const [page, setPage] = useState(1);
   const breakpoints = {
     default: 3,

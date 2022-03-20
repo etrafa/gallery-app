@@ -1,41 +1,37 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Masonry from "react-masonry-css";
 
 //components
 import Navbar from "../navbar/Navbar";
 import ImageGallery from "./ImageGallery";
+import { GalleryContext } from "../Context/GalleryContext";
 
 //styling
 import "./Gallery.css";
-import Modal from "../Modal/Modal";
 
-const Gallery = ({
-  pictures,
-  setPictures,
-  setLargeImage,
-  largeImage,
-  setIndex,
-}) => {
+const Gallery = ({ pictures, setPictures }) => {
   const apiKey = "cI86sWJtLf-QfrOGRr71mwxCDxz0xY1Lr7sC4Ae66yw";
   const [page, setPage] = useState(1);
+  const { inputSearchQuery } = useContext(GalleryContext);
+  const [searchIsFound, setSearchIsFound] = useState(true);
 
   //fetching the api data
   useEffect(() => {
     fetch(
-      `https://api.unsplash.com/search/photos?page=${page}&query=office&client_id=${apiKey}`
+      `https://api.unsplash.com/search/photos?page=${page}&query=${inputSearchQuery}&client_id=${apiKey}`
     )
       .then((resp) => {
         return resp.json();
       })
       .then((data) => {
-        // const pictureData = [...new Set(data.results)];
-        // setPictures((prev) => [...prev, ...pictureData]);
         const pictureData = data.results;
         const pictureArray = [...new Set(pictureData)];
         setPictures((prev) => [...prev, ...pictureArray]);
+        if (data?.results?.length > 1) setSearchIsFound(false);
+        else setSearchIsFound(true);
       });
-  }, [page]);
+  }, [page, inputSearchQuery]);
 
   const breakpoints = {
     default: 3,
@@ -45,7 +41,11 @@ const Gallery = ({
 
   return (
     <>
-      <Modal setIndex={setIndex} />
+      {searchIsFound && (
+        <h1 className="text-3xl mt-40 mx-auto text-center font-bold leading-loose">
+          No results. Please try again with different keywords!
+        </h1>
+      )}
       <InfiniteScroll
         dataLength={pictures.length}
         next={() => setPage((prev) => prev + 1)}
@@ -59,7 +59,7 @@ const Gallery = ({
           columnClassName="my-masonry-grid_column p-4"
         >
           {pictures.map((picture, index) => (
-            <ImageGallery props={picture} key={picture.id} />
+            <ImageGallery props={picture} listId={index} key={index} />
           ))}
         </Masonry>
       </InfiniteScroll>

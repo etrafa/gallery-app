@@ -6,3 +6,15 @@
 .my-masonry-grid_column {
   background-clip: padding-box;
 }
+
+@media only screen and (max-width: 700px) {
+  .gallery-large-screen {
+    display: none;
+  }
+}
+
+@media only screen and (min-width: 700px) {
+  .gallery-small-screen {
+    display: none;
+  }
+}
