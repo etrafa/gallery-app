@@ -1,4 +1,4 @@
-.modal-container {
+/* .modal-container {
   position: fixed;
   top: 0;
   left: 0;
@@ -49,4 +49,35 @@
   top: 45%;
   right: 12%;
   cursor: pointer;
+} */
+
+.image-modal-container {
+  background-color: red;
+  position: fixed;
+  width: 90%;
+  height: 100vh;
+  z-index: 999;
+  margin-left: auto;
+  margin-right: auto;
+  top: 10%;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
+.image-modal-prev-button {
+  width: 240px !important;
+  height: 240px !important;
+  color: #fff;
+  position: absolute;
+  top: 40%;
+}
+
+.image-modal-next-button {
+  width: 40px;
+  height: 40px;
+  color: #fff;
+  position: absolute;
+  top: 40%;
+  right: 2%;
 }

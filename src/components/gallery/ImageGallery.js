@@ -8,25 +8,38 @@ import {
 import { GalleryContext } from "../Context/GalleryContext";
 
 const ImageGallery = ({ props, listId }) => {
-  const [heartIcon, setHeartIcon] = useState(false);
+  const [heartIcon, setHeartIcon] = useState(true);
   const {
-    pictures,
     setLargeImage,
     setGalleryArrayIndex,
     setUploaderImageModal,
     setUploaderNameModal,
+    userLikeImage,
     setUserLikeImage,
+    lgShow,
+    setLgShow,
+    setImageModal,
   } = useContext(GalleryContext);
 
-  const styleHeartIcon = () => {
+  // add pictures user likes to their library
+  const styleHeartIcon = (id) => {
     setHeartIcon(!heartIcon);
-    if (styleHeartIcon) {
+    if (heartIcon) {
       setUserLikeImage((prev) => [...prev, props]);
+    }
+    // remove pictures user likes to their library
+    else {
+      setUserLikeImage(
+        userLikeImage.filter((image) => {
+          return image.id !== id;
+        })
+      );
     }
   };
 
   return (
     <>
+      {/* GALLERY SECTION FOR SMALL SCREEN */}
       <div className="gallery-small-screen">
         {/* user informations */}
         <div className="flex mb-2">
@@ -45,6 +58,7 @@ const ImageGallery = ({ props, listId }) => {
               setGalleryArrayIndex(listId);
               setUploaderImageModal(props.user.profile_image.large);
               setUploaderNameModal(props.user.name);
+              setLgShow(true);
             }}
             className="cursor-pointer hover:opacity-80 mt-1"
             src={props.urls.regular}
@@ -56,11 +70,11 @@ const ImageGallery = ({ props, listId }) => {
             {/* heart icon for LARGE SCREEN */}
             <div className="flex mb-8">
               <span
-                onClick={styleHeartIcon}
+                onClick={() => styleHeartIcon(props.id)}
                 className={
                   heartIcon
-                    ? " bg-heart-background w-10 h-7 pt-0.5 rounded-lg text-white cursor-pointer"
-                    : "border-2 bg-icon-background w-10 h-7 rounded-lg text-icon-color cursor-pointer "
+                    ? "border-2 bg-icon-background w-10 h-7 rounded-lg text-icon-color cursor-pointer "
+                    : " bg-heart-background w-10 h-7 pt-0.5 rounded-lg text-white cursor-pointer"
                 }
               >
                 <svg
@@ -80,6 +94,7 @@ const ImageGallery = ({ props, listId }) => {
                 <AiOutlinePlus className="mx-auto mt-1 hover:fill-black " />
               </span>
             </div>
+
             {/* download icon */}
             <span className="border-2 ml-2 bg-icon-background w-10 h-7  rounded-lg text-icon-color cursor-pointer">
               <AiOutlineArrowDown className="mx-auto mt-1 hover:fill-black" />
@@ -96,6 +111,7 @@ const ImageGallery = ({ props, listId }) => {
               setGalleryArrayIndex(listId);
               setUploaderImageModal(props.user.profile_image.large);
               setUploaderNameModal(props.user.name);
+              setLgShow(true);
             }}
             className="cursor-pointer hover:opacity-80 mt-4"
             src={props.urls.regular}
@@ -105,11 +121,11 @@ const ImageGallery = ({ props, listId }) => {
           <div className="invisible group-hover:visible absolute top-6 right-2 flex justify-end">
             {/* heart icon */}
             <span
-              onClick={styleHeartIcon}
+              onClick={() => styleHeartIcon(props.id)}
               className={
                 heartIcon
-                  ? " bg-heart-background w-10 h-7 pt-0.5 rounded-lg text-white cursor-pointer"
-                  : "border-2 bg-icon-background w-10 h-7 rounded-lg text-icon-color cursor-pointer "
+                  ? "border-2 bg-icon-background w-10 h-7 rounded-lg text-icon-color cursor-pointer "
+                  : "bg-heart-background w-10 h-7 pt-0.5 rounded-lg text-white cursor-pointer"
               }
             >
               <svg
@@ -126,7 +142,10 @@ const ImageGallery = ({ props, listId }) => {
             </span>
 
             {/* add icon */}
-            <span className="border-2 ml-2 bg-icon-background w-10 h-7  rounded-lg text-icon-color cursor-pointer ">
+            <span
+              // onClick={() => plusIconHandler(props.id)}
+              className="border-2 ml-2 bg-icon-background w-10 h-7  rounded-lg text-icon-color cursor-pointer "
+            >
               <AiOutlinePlus className="mx-auto mt-1 hover:fill-black " />
             </span>
           </div>

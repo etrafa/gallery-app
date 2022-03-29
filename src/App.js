@@ -8,8 +8,9 @@ import Home from "./components/home/Home";
 import UserProfile from "./components/userProfile/UserProfile";
 import SearchResult from "./components/home/SearchResult";
 import ImageGallery from "./components/gallery/ImageGallery";
-import ImageModal from "./components/Modal/ImageModal";
 import UserNameModal from "./components/userProfile/UserNameModal";
+import ImageModal from "./components/Modal/ImageModal";
+import ImageCarousel from "./components/gallery/ImageCarousel";
 
 function App() {
   const [query, setQuery] = useState(undefined);
@@ -20,11 +21,12 @@ function App() {
   const [galleryArrayIndex, setGalleryArrayIndex] = useState(undefined);
   const [pictures, setPictures] = useState([]);
   const [loginName, setLoginName] = useState("");
-  const [openLoginModal, setOpenLoginModal] = useState(false);
+  const [openLoginModal, setOpenLoginModal] = useState(true);
   const [userName, setUserName] = useState("");
   const [searchQuery, setSearchQuery] = useState("messi");
   const [inputSearchQuery, setInputSearchQuery] = useState("messi");
   const [userLikeImage, setUserLikeImage] = useState([]);
+  const [lgShow, setLgShow] = useState(false);
 
   return (
     <GalleryContext.Provider
@@ -53,10 +55,13 @@ function App() {
         setInputSearchQuery,
         userLikeImage,
         setUserLikeImage,
+        lgShow,
+        setLgShow,
       }}
     >
       <Router>
-        {largeImage && <ImageModal />}
+        {/* {largeImage && <ImageModal />} */}
+        {largeImage && <ImageCarousel />}
         {openLoginModal && <UserNameModal />}
         <Routes>
           <Route

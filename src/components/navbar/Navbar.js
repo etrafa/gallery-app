@@ -1,5 +1,5 @@
 import { useContext, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { GalleryContext } from "../Context/GalleryContext";
 
 //logo
@@ -9,10 +9,16 @@ import Logo from "../navbar/assets/logo.png";
 import "./Navbar.css";
 
 const Navbar = () => {
-  const { searchQuery, setInputSearchQuery, setSearchQuery, setPictures } =
-    useContext(GalleryContext);
+  const {
+    searchQuery,
+    setInputSearchQuery,
+    setSearchQuery,
+    setPictures,
+    loginName,
+  } = useContext(GalleryContext);
 
   const inputRef = useRef();
+  let navigate = useNavigate();
 
   return (
     <nav className="navbar fixed top-0 z-50">
@@ -30,6 +36,7 @@ const Navbar = () => {
           e.preventDefault();
           setPictures([]);
           setInputSearchQuery(searchQuery);
+          navigate("/gallery");
         }}
       >
         <input
@@ -55,8 +62,10 @@ const Navbar = () => {
       </form>
 
       <Link to="/user-profile">
-        <div className="bg-indigo-400 w-10 h-10 mr-2 rounded-3xl pl-3 pt-1 lg:mr-6 ">
-          <span className="text-white font-bold text-2xl pl-0.5">L</span>
+        <div className="bg-indigo-400 w-10 h-10 mr-2 rounded-3xl pl-2.5 pt-1 lg:mr-6 ">
+          <span className="text-white font-bold text-2xl pl-0.5 no-underline">
+            {loginName[0]?.toUpperCase()}
+          </span>
         </div>
       </Link>
     </nav>

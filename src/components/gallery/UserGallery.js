@@ -7,7 +7,8 @@ import {
 
 import { GalleryContext } from "../Context/GalleryContext";
 
-const ImageGallery = ({ props, listId }) => {
+const UserGallery = ({ props, listId }) => {
+  const [heartIcon, setHeartIcon] = useState(false);
   const {
     setLargeImage,
     setGalleryArrayIndex,
@@ -15,18 +16,13 @@ const ImageGallery = ({ props, listId }) => {
     setUploaderNameModal,
     userLikeImage,
     setUserLikeImage,
-    heartIcon,
-    setHeartIcon,
   } = useContext(GalleryContext);
 
   // add pictures user likes to their library
+
   const styleHeartIcon = (id) => {
-    setHeartIcon(!heartIcon);
-    if (heartIcon) {
-      setUserLikeImage((prev) => [...prev, props]);
-    }
     // remove pictures user likes to their library
-    else {
+    if (heartIcon === false) {
       setUserLikeImage(
         userLikeImage.filter((image) => {
           return image.id !== id;
@@ -86,12 +82,7 @@ const ImageGallery = ({ props, listId }) => {
                   />
                 </svg>
               </span>
-              {/* add icon */}
-              <span className="border-2 ml-2 bg-icon-background w-10 h-7  rounded-lg text-icon-color cursor-pointer ">
-                <AiOutlinePlus className="mx-auto mt-1 hover:fill-black " />
-              </span>
             </div>
-
             {/* download icon */}
             <span className="border-2 ml-2 bg-icon-background w-10 h-7  rounded-lg text-icon-color cursor-pointer">
               <AiOutlineArrowDown className="mx-auto mt-1 hover:fill-black" />
@@ -136,14 +127,6 @@ const ImageGallery = ({ props, listId }) => {
                 />
               </svg>
             </span>
-
-            {/* add icon */}
-            <span
-              // onClick={() => plusIconHandler(props.id)}
-              className="border-2 ml-2 bg-icon-background w-10 h-7  rounded-lg text-icon-color cursor-pointer "
-            >
-              <AiOutlinePlus className="mx-auto mt-1 hover:fill-black " />
-            </span>
           </div>
           {/* image author VISIBLE only with HOVER (for LARGE SCREEN) */}
           <div className="invisible group-hover:visible flex w-11/12 justify-between  absolute bottom-2 left-2 ">
@@ -165,4 +148,4 @@ const ImageGallery = ({ props, listId }) => {
   );
 };
 
-export default ImageGallery;
+export default UserGallery;
