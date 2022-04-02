@@ -1,258 +1,254 @@
-import React, { useState, useEffect } from "react";
-import InfiniteScroll from "react-infinite-scroll-component";
-
-//components
-
-//icons
-import { AiOutlineHeart, AiOutlinePlus } from "react-icons/ai";
-import Navbar from "../navbar/Navbar";
+import { useContext, useState } from "react";
+import { GalleryContext } from "../Context/GalleryContext";
+import { Navigation, Pagination, Scrollbar, A11y, Virtual } from "swiper";
+import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 
 //styling
+import "./ImageCarousel.css";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
 
-const Gallery = () => {
-  const apiKey = "cI86sWJtLf-QfrOGRr71mwxCDxz0xY1Lr7sC4Ae66yw";
-  const [pictures, setPictures] = useState([]);
-  const [page, setPage] = useState(1);
+const ImageCarousel = () => {
+  const {
+    pictures,
+    galleryArrayIndex,
+    setGalleryArrayIndex,
+    uploaderNameModal,
+    setUploaderNameModal,
+    uploaderImageModal,
+    setUploaderImageModal,
+    showModal,
+    setShowModal,
+  } = useContext(GalleryContext);
 
-  //fetching the api data
-
-  useEffect(() => {
-    fetch(
-      `https://api.unsplash.com/search/photos?page=${page}&query=office&client_id=${apiKey}`
-    )
-      .then((resp) => {
-        return resp.json();
-      })
-      .then((data) => {
-        const pictureData = [...new Set(data.results)];
-        setPictures((prev) => [...prev, ...pictureData]);
-      });
-  }, [page]);
-
-  return (
-    <InfiniteScroll
-      dataLength={pictures.length}
-      next={() => setPage((prev) => prev + 1)}
-      hasMore={true}
-    >
-      <Navbar />
-      <div className="columns-1 lg:columns-3 lg:w-5/6 mx-auto gap-8 space-y-4 mt-24">
-        {pictures.map((picture) => (
-          <div key={picture.id}>
-            <div className="flex p-2 lg:hidden lg:hover:visible">
-              <img
-                className="rounded-full w-10 h-10"
-                src={picture.user.profile_image.medium}
-                alt={`${picture.name} profile`}
-              />
-              <span className="pt-2 pl-2">{picture.user.name}</span>
-            </div>
-            <img className="" src={picture.urls.regular} />
-
-            {/* //icons for small devices// */}
-            <div className="flex mt-2 pl-2 mb-8 lg:hidden">
-              <AiOutlineHeart className="w-8 h-8 text-gray-600" />
-              <AiOutlinePlus className="w-8 h-8 ml-2 text-gray-600 " />
-              <button className="w-40 border ml-auto mr-4">Download</button>
-            </div>
-          </div>
-        ))}
-      </div>
-    </InfiniteScroll>
-  );
-};
-
-export default Gallery;
-
-// import React, { useState, useEffect } from "react";
-// import InfiniteScroll from "react-infinite-scroll-component";
-
-// //components
-
-// //icons
-// import { AiOutlineHeart, AiOutlinePlus } from "react-icons/ai";
-// import Navbar from "../navbar/Navbar";
-
-// //styling
-
-// const Gallery = () => {
-//   const apiKey = "cI86sWJtLf-QfrOGRr71mwxCDxz0xY1Lr7sC4Ae66yw";
-//   const [pictures, setPictures] = useState([]);
-//   const [page, setPage] = useState(1);
-
-//   //fetching the api data
-
-//   useEffect(() => {
-//     fetch(
-//       `https://api.unsplash.com/search/photos?page=${page}&query=office&client_id=${apiKey}`
-//     )
-//       .then((resp) => {
-//         return resp.json();
-//       })
-//       .then((data) => {
-//         const pictureData = [...new Set(data.results)];
-//         setPictures((prev) => [...prev, ...pictureData]);
-//       });
-//   }, [page]);
-
-//   return (
-//     <InfiniteScroll
-//       dataLength={pictures.length}
-//       next={() => setPage((prev) => prev + 1)}
-//       hasMore={true}
-//     >
-//       <Navbar />
-//       <div className="grid grid-cols-fluid grid-rows-auto-fit gap-12 w-3/4 mx-auto mt-24">
-//         {pictures.map((picture) => (
-//           <div key={picture.id}>
-//             <div className="flex p-2 lg:hidden lg:hover:visible">
-//               <img
-//                 className="rounded-full w-10 h-10"
-//                 src={picture.user.profile_image.medium}
-//                 alt={`${picture.name} profile`}
-//               />
-//               <span className="pt-2 pl-2">{picture.user.name}</span>
-//             </div>
-//             <img className=" max-h-96 w-full  " src={picture.urls.regular} />
-
-//             {/* //icons for small devices// */}
-//             <div className="flex mt-2 pl-2 mb-8 lg:hidden">
-//               <AiOutlineHeart className="w-8 h-8 text-gray-600" />
-//               <AiOutlinePlus className="w-8 h-8 ml-2 text-gray-600 " />
-//               <button className="w-40 border ml-auto mr-4">Download</button>
-//             </div>
-//           </div>
-//         ))}
-//       </div>
-//     </InfiniteScroll>
-//   );
-// };
-
-// export default Gallery;
-
-
-
-
-
-
-
-
-
-
-import React, { useState, useEffect } from "react";
-import InfiniteScroll from "react-infinite-scroll-component";
-import { ImageList, ImageListItem } from "@mui/material";
-
-//components
-import Navbar from "../navbar/Navbar";
-
-//icons
-import {
-  AiOutlineHeart,
-  AiOutlinePlus,
-  AiOutlineArrowDown,
-} from "react-icons/ai";
-
-//styling
-import "./Gallery.css";
-
-const Gallery = () => {
-  const apiKey = "cI86sWJtLf-QfrOGRr71mwxCDxz0xY1Lr7sC4Ae66yw";
-  const [pictures, setPictures] = useState([]);
-  const [page, setPage] = useState(1);
-  const [heartIcon, setHeartIcon] = useState(false);
-
-  const styleHeartIcon = () => {
-    setHeartIcon(!heartIcon);
-  };
-
-  //fetching the api data
-  useEffect(() => {
-    fetch(
-      `https://api.unsplash.com/search/photos?page=${page}&query=office&client_id=${apiKey}`
-    )
-      .then((resp) => {
-        return resp.json();
-      })
-      .then((data) => {
-        console.log(data);
-        const pictureData = [...new Set(data.results)];
-        setPictures((prev) => [...prev, ...pictureData]);
-      });
-  }, [page]);
-
+  // const handleSelect = (selectedIndex, e) => {
+  //   setGalleryArrayIndex(selectedIndex);
+  //   setUploaderNameModal(pictures[selectedIndex].user.name);
+  //   setUploaderImageModal(pictures[selectedIndex].user.profile_image.medium);
+  //   console.log(uploaderNameModal);
+  //   console.log(selectedIndex);
+  // };
+  console.log(galleryArrayIndex);
   return (
     <>
-      <InfiniteScroll
-        dataLength={pictures.length}
-        next={() => setPage((prev) => prev + 1)}
-        hasMore={true}
-        scrollThreshold={1}
-      >
-        <Navbar />
-        <ImageList
-          className="lg:w-4/6 mx-auto mt-24  float-none h-full"
-          variant="masonry"
-          cols={3}
-          gap={8}
-        >
-          {pictures.map((picture) => (
-            <ImageListItem className="group" key={picture.id}>
-              <img
-                className="cursor-pointer hover:opacity-80"
-                src={picture.urls.regular}
-                alt={picture.user.name}
-              />
-
-              {/* image icons VISIBLE only with HOVER (for LARGE SCREEN) */}
-              <div className="invisible group-hover:visible absolute top-2 right-2 flex justify-end">
-                {/* heart icon */}
-                <span
-                  className={
-                    heartIcon
-                      ? " bg-heart-background w-10 h-7 pt-0.5 rounded-lg text-white cursor-pointer"
-                      : "border-2 bg-icon-background w-10 h-7 rounded-lg text-icon-color cursor-pointer "
-                  }
+      {showModal && (
+        <div>
+          <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+            <div className="relative w-auto my-6 mx-auto max-w-3xl">
+              {/*content*/}
+              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                {/*header*/}
+                <Swiper
+                  // install Swiper modules
+                  modules={[Navigation, Pagination, Scrollbar, A11y, Virtual]}
+                  initialSlide={galleryArrayIndex}
+                  spaceBetween={0}
+                  slidesPerView={1}
+                  navigation
+                  onSlideNextTransitionStart={() => {
+                    console.log(galleryArrayIndex);
+                    setGalleryArrayIndex((prev) => prev + 1);
+                    setUploaderNameModal(
+                      pictures[galleryArrayIndex]?.user?.name
+                    );
+                    setUploaderImageModal(
+                      pictures[galleryArrayIndex].user.profile_image.large
+                    );
+                  }}
+                  onSlidePrevTransitionStart={() => {
+                    setGalleryArrayIndex((prev) => prev - 1);
+                    setUploaderNameModal(
+                      pictures[galleryArrayIndex]?.user?.name
+                    );
+                    setUploaderImageModal(
+                      pictures[galleryArrayIndex].user.profile_image.large
+                    );
+                    console.log(galleryArrayIndex);
+                  }}
+                  className="mt-24"
+                  style={{
+                    width: "450px",
+                    height: "600px",
+                    marginTop: "50px",
+                    borderRadius: "20px",
+                    boxShadow: "0px 0px 19px 0px rgba(0,0,0,0.24)",
+                  }}
+                  autoplay={false}
                 >
-                  <svg
-                    className="mx-auto mt-1 h-4 w-4"
-                    onClick={styleHeartIcon}
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path
-                      className="hover:fill-black"
-                      d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
-                    />
-                  </svg>
-                </span>
-                {/* add icon */}
-                <span className="border-2 ml-2 bg-icon-background w-10 h-7  rounded-lg text-icon-color cursor-pointer ">
-                  <AiOutlinePlus className="mx-auto mt-1 hover:fill-black " />
-                </span>
-              </div>
+                  {pictures.map((picture, index) => {
+                    return (
+                      <SwiperSlide virtualIndex={index} key={index}>
+                        <img
+                          className="mt-24"
+                          src={picture.urls.regular}
+                          alt=""
+                        />
+                      </SwiperSlide>
+                    );
+                  })}
+                </Swiper>
 
-              {/* image author VISIBLE only with HOVER (for LARGE SCREEN) */}
-              <div className="invisible group-hover:visible flex w-11/12 justify-between  absolute bottom-2 left-2 ">
-                <div className="flex">
+                {/*body*/}
+                <div className="relative p-6 flex-auto flex">
                   <img
-                    className="rounded-full w-10 h-10"
-                    src={picture.user.profile_image.medium}
-                    alt={`${picture.name} profile`}
+                    className="w-20 border-4 rounded-lg"
+                    src={uploaderImageModal}
+                    alt=""
                   />
-                  <p className=" text-white pt-5 pl-2 ">{picture.user.name}</p>
+                  <span className="text-slate-600 pt-8 mx-auto">
+                    {uploaderNameModal}
+                  </span>
                 </div>
-                <a href={picture.links.download} download>
-                  <AiOutlineArrowDown className="border-2 mt-1 bg-icon-background w-10 h-7 rounded-lg text-icon-color cursor-pointer " />
-                </a>
+                {/*footer*/}
+                <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+                  <button
+                    className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    type="button"
+                    onClick={() => setShowModal(false)}
+                  >
+                    Close
+                  </button>
+                </div>
               </div>
-            </ImageListItem>
-          ))}
-        </ImageList>
-      </InfiniteScroll>
+            </div>
+          </div>
+          <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+        </div>
+      )}
     </>
   );
 };
 
-export default Gallery;
+export default ImageCarousel;
+
+
+
+
+
+import { useContext, useState } from "react";
+import { GalleryContext } from "../Context/GalleryContext";
+import { Navigation, Pagination, Scrollbar, A11y, Virtual } from "swiper";
+import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
+
+//styling
+import "./ImageCarousel.css";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
+
+const ImageCarousel = () => {
+  const {
+    pictures,
+    galleryArrayIndex,
+    setGalleryArrayIndex,
+    uploaderNameModal,
+    setUploaderNameModal,
+    uploaderImageModal,
+    setUploaderImageModal,
+    showModal,
+    setShowModal,
+  } = useContext(GalleryContext);
+
+  // const handleSelect = (selectedIndex, e) => {
+  //   setGalleryArrayIndex(selectedIndex);
+  //   setUploaderNameModal(pictures[selectedIndex].user.name);
+  //   setUploaderImageModal(pictures[selectedIndex].user.profile_image.medium);
+  //   console.log(uploaderNameModal);
+  //   console.log(selectedIndex);
+  // };
+  console.log(galleryArrayIndex);
+  return (
+    <>
+      {showModal && (
+        <div>
+          <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+            <div className="relative w-auto my-6 mx-auto max-w-3xl">
+              {/*content*/}
+              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                {/*header*/}
+                <Swiper
+                  // install Swiper modules
+                  modules={[Navigation, Pagination, Scrollbar, A11y, Virtual]}
+                  initialSlide={galleryArrayIndex}
+                  spaceBetween={0}
+                  slidesPerView={1}
+                  navigation
+                  onSlideNextTransitionStart={() => {
+                    console.log(galleryArrayIndex);
+                    setGalleryArrayIndex((prev) => prev + 1);
+                    setUploaderNameModal(
+                      pictures[galleryArrayIndex]?.user?.name
+                    );
+                    setUploaderImageModal(
+                      pictures[galleryArrayIndex].user.profile_image.large
+                    );
+                  }}
+                  onSlidePrevTransitionStart={() => {
+                    setGalleryArrayIndex((prev) => prev - 1);
+                    setUploaderNameModal(
+                      pictures[galleryArrayIndex]?.user?.name
+                    );
+                    setUploaderImageModal(
+                      pictures[galleryArrayIndex].user.profile_image.large
+                    );
+                    console.log(galleryArrayIndex);
+                  }}
+                  className="mt-24"
+                  style={{
+                    width: "450px",
+                    height: "600px",
+                    marginTop: "50px",
+                    borderRadius: "20px",
+                    boxShadow: "0px 0px 19px 0px rgba(0,0,0,0.24)",
+                  }}
+                  autoplay={false}
+                >
+                  {pictures.map((picture, index) => {
+                    return (
+                      <SwiperSlide virtualIndex={index} key={index}>
+                        <img
+                          className="mt-24"
+                          src={picture.urls.regular}
+                          alt=""
+                        />
+                      </SwiperSlide>
+                    );
+                  })}
+                </Swiper>
+
+                {/*body*/}
+                <div className="relative p-6 flex-auto flex">
+                  <img
+                    className="w-20 border-4 rounded-lg"
+                    src={uploaderImageModal}
+                    alt=""
+                  />
+                  <span className="text-slate-600 pt-8 mx-auto">
+                    {uploaderNameModal}
+                  </span>
+                </div>
+                {/*footer*/}
+                <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+                  <button
+                    className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    type="button"
+                    onClick={() => setShowModal(false)}
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+        </div>
+      )}
+    </>
+  );
+};
+
+export default ImageCarousel;
+

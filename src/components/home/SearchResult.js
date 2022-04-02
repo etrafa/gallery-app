@@ -5,7 +5,7 @@ import Masonry from "react-masonry-css";
 //components
 
 //icons
-import { AiOutlineHeart, AiOutlinePlus } from "react-icons/ai";
+
 import Navbar from "../navbar/Navbar";
 import ImageGallery from "../gallery/ImageGallery";
 
@@ -15,7 +15,7 @@ const SearchResult = ({ query }) => {
   const apiKey = "cI86sWJtLf-QfrOGRr71mwxCDxz0xY1Lr7sC4Ae66yw";
   const [pictures, setPictures] = useState([]);
   const [notFound, setNotFound] = useState(true);
-  const [moreResult, setMoreResult] = useState(false);
+
   const [page, setPage] = useState(1);
   const breakpoints = {
     default: 3,
@@ -55,8 +55,10 @@ const SearchResult = ({ query }) => {
           columnClassName="my-masonry-grid_column p-4"
         >
           {pictures &&
-            pictures.map((picture) => {
-              return <ImageGallery props={picture} key={picture.id} />;
+            pictures.map((picture, index) => {
+              return (
+                <ImageGallery props={picture} listId={index} key={picture.id} />
+              );
             })}
           {notFound && (
             <h1 className=" text-3xl mt-40 mx-auto text-center font-bold">

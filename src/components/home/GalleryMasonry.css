@@ -1,0 +1,27 @@
+.my-masonry-grid {
+  display: -webkit-box; /* Not needed if autoprefixing */
+  display: -ms-flexbox; /* Not needed if autoprefixing */
+  display: flex;
+}
+.my-masonry-grid_column {
+  background-clip: padding-box;
+}
+
+@media only screen and (max-width: 700px) {
+  .gallery-large-screen {
+    display: none;
+  }
+}
+
+@media only screen and (min-width: 700px) {
+  .gallery-small-screen {
+    display: none;
+  }
+  .my-masonry-grid {
+    width: 83.333333%;
+    margin: 0 auto;
+    margin-top: 6rem;
+    float: none;
+    height: 100%;
+  }
+}

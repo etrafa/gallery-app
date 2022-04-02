@@ -16,9 +16,8 @@ const ImageGallery = ({ props, listId }) => {
     setUploaderNameModal,
     userLikeImage,
     setUserLikeImage,
-    lgShow,
-    setLgShow,
     setImageModal,
+    setShowModal,
   } = useContext(GalleryContext);
 
   // add pictures user likes to their library
@@ -54,11 +53,11 @@ const ImageGallery = ({ props, listId }) => {
         <div className="group relative overflow-hidden">
           <img
             onClick={() => {
+              setShowModal(true);
               setLargeImage(props.urls.full);
               setGalleryArrayIndex(listId);
               setUploaderImageModal(props.user.profile_image.large);
               setUploaderNameModal(props.user.name);
-              setLgShow(true);
             }}
             className="cursor-pointer hover:opacity-80 mt-1"
             src={props.urls.regular}
@@ -107,11 +106,11 @@ const ImageGallery = ({ props, listId }) => {
         <div className="group relative overflow-hidden">
           <img
             onClick={() => {
+              setShowModal(true);
               setLargeImage(props.urls.full);
               setGalleryArrayIndex(listId);
               setUploaderImageModal(props.user.profile_image.large);
               setUploaderNameModal(props.user.name);
-              setLgShow(true);
             }}
             className="cursor-pointer hover:opacity-80 mt-4"
             src={props.urls.regular}

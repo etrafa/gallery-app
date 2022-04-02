@@ -25,7 +25,7 @@ const Navbar = () => {
       <Link to="/gallery-app">
         <img
           src={Logo}
-          className="mr-3 h-12 sm:h-12 rounded-xl ml-2"
+          className="mr-3 h-10 sm:h-10 rounded-xl ml-2"
           alt={`logo image`}
         />
       </Link>

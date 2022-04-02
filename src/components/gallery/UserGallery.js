@@ -16,6 +16,7 @@ const UserGallery = ({ props, listId }) => {
     setUploaderNameModal,
     userLikeImage,
     setUserLikeImage,
+    setShowModal,
   } = useContext(GalleryContext);
 
   // add pictures user likes to their library

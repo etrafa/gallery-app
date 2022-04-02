@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GalleryContext } from "./components/Context/GalleryContext";
 
 //components
@@ -9,7 +9,6 @@ import UserProfile from "./components/userProfile/UserProfile";
 import SearchResult from "./components/home/SearchResult";
 import ImageGallery from "./components/gallery/ImageGallery";
 import UserNameModal from "./components/userProfile/UserNameModal";
-import ImageModal from "./components/Modal/ImageModal";
 import ImageCarousel from "./components/gallery/ImageCarousel";
 
 function App() {
@@ -26,7 +25,13 @@ function App() {
   const [searchQuery, setSearchQuery] = useState("messi");
   const [inputSearchQuery, setInputSearchQuery] = useState("messi");
   const [userLikeImage, setUserLikeImage] = useState([]);
-  const [lgShow, setLgShow] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setShowModal(false);
+    }, 200);
+  }, []);
 
   return (
     <GalleryContext.Provider
@@ -55,8 +60,8 @@ function App() {
         setInputSearchQuery,
         userLikeImage,
         setUserLikeImage,
-        lgShow,
-        setLgShow,
+        showModal,
+        setShowModal,
       }}
     >
       <Router>
