@@ -67,4 +67,4 @@ const Gallery = ({ pictures, setPictures }) => {
   );
 };
 
-export default Gallery;
+export default Gallery

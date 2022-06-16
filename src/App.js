@@ -10,6 +10,7 @@ import SearchResult from "./components/home/SearchResult";
 import ImageGallery from "./components/gallery/ImageGallery";
 import UserNameModal from "./components/userProfile/UserNameModal";
 import ImageCarousel from "./components/gallery/ImageCarousel";
+import Navbar from "./components/navbar/Navbar";
 
 function App() {
   const [query, setQuery] = useState(undefined);
@@ -67,17 +68,18 @@ function App() {
       <Router>
         {/* {largeImage && <ImageModal />} */}
         {largeImage && <ImageCarousel />}
-        {openLoginModal && <UserNameModal />}
+        {/* {openLoginModal && <UserNameModal />} */}
+        <Navbar />
         <Routes>
           <Route
-            path="/gallery-app"
+            path="/"
             element={<Home query={query} setQuery={setQuery} />}
           />
           <Route
             path="/gallery"
             element={<Gallery pictures={pictures} setPictures={setPictures} />}
           />
-          <Route path="/user-profile" element={<UserProfile />} />
+          {/* <Route path="/user-profile" element={<UserProfile />} /> */}
           <Route path="/search" element={<SearchResult query={query} />} />
           <Route element={<ImageGallery />} />
         </Routes>

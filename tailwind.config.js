@@ -9,6 +9,7 @@ module.exports = {
         "icon-background": "#F7F4F1",
         "icon-color": "#767676",
         "heart-background": "#F15151",
+        "search-bg": "#f7f7f7",
       },
     },
   },
