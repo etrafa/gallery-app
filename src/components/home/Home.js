@@ -4,35 +4,9 @@ import Navbar from "../navbar/Navbar";
 
 //styling
 import "./Home.css";
+import SearchResult from "./SearchResult";
 
 const Home = ({ query, setQuery }) => {
-  const placeHolderMessage = [
-    "Travel...",
-    "Car...",
-    "Flower...",
-    "Love...",
-    "Japan...",
-  ];
-  const [index, setIndex] = useState(0);
-
-  // placeholder animation
-  useEffect(() => {
-    const timer = () => {
-      setIndex((prevIndex) => {
-        if (prevIndex === placeHolderMessage.length - 1) {
-          return 0;
-        }
-        return prevIndex + 1;
-      });
-    };
-
-    setInterval(timer, 3000);
-
-    return () => {
-      clearInterval(timer);
-    };
-  }, []);
-
   return (
     <div>
       <div className="relative bg-[url('./components//home/assets/wallpaper.jpg')] flex flex-col justify-center items-center w-full h-[calc(24rem_+_7rem)] bg-cover bg-center">
@@ -59,7 +33,7 @@ const Home = ({ query, setQuery }) => {
           />
         </div>
       </div>
-      <div className="w-full h-screen bg-orange-500"></div>
+      <SearchResult />
     </div>
   );
 };

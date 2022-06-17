@@ -1,5 +1,6 @@
 //logo
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import Logo from "../navbar/assets/logo.png";
 
 //component
@@ -24,7 +25,9 @@ const NavbarComp = () => {
           : "w-full h-20 bg-transparent flex justify-between items-center border-gray-50 fixed top-0 z-50 px-4 lg:px-24"
       }
     >
-      <img className="w-10 h-10 cursor-pointer" src={Logo} alt="logo" />
+      <Link to="/">
+        <img className="w-10 h-10 cursor-pointer" src={Logo} alt="logo" />
+      </Link>
       <div
         className={
           color
@@ -45,9 +48,9 @@ const NavbarComp = () => {
           ></path>
         </svg>
         <input
-          className="w-full h-12 rounded-lg bg-search-bg placeholder:text-xl placeholder:pl-2"
+          className="w-full h-12 rounded-lg bg-search-bg placeholder:text-xl pl-6"
           type="text"
-          placeholder="Search"
+          placeholder="Search for free pictures"
         />
       </div>
       <svg

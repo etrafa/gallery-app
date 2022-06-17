@@ -10,6 +10,7 @@ module.exports = {
         "icon-color": "#767676",
         "heart-background": "#F15151",
         "search-bg": "#f7f7f7",
+        "main-gray-text": "#2c343e",
       },
     },
   },

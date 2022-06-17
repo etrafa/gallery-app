@@ -27,6 +27,7 @@ function App() {
   const [inputSearchQuery, setInputSearchQuery] = useState("messi");
   const [userLikeImage, setUserLikeImage] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [navRouter, setNavRouter] = useState("");
 
   useEffect(() => {
     setTimeout(() => {

@@ -75,7 +75,7 @@
 
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
-import NavbarComp from "./NavbarComp";
+import NavbarForHome from "./NavbarForHome";
 
 const Navbar = () => {
   //get PathName URL
@@ -87,7 +87,7 @@ const Navbar = () => {
     setPathName(pathURL.pathname);
   }, [pathName]);
 
-  return <NavbarComp />;
+  return <NavbarForHome />;
 };
 
 export default Navbar;
