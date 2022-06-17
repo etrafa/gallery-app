@@ -21,8 +21,6 @@ export const useFetch = (url, page) => {
       }
     };
 
-    console.log(url);
-
     fetchData();
   }, [url]);
 

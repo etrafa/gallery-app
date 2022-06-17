@@ -1,6 +1,7 @@
 //logo
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { GalleryContext } from "../Context/GalleryContext";
 import Logo from "../navbar/assets/logo.png";
 
 //component
@@ -9,6 +10,7 @@ import ExploreDropDown from "./ExploreDropDown";
 const NavbarComp = () => {
   //change navbar color when scrolling
   const [color, setColor] = useState(false);
+  const { setOpenLoginModal } = useContext(GalleryContext);
 
   const changeColor = () => {
     if (window.scrollY >= 90) setColor(true);
@@ -69,7 +71,10 @@ const NavbarComp = () => {
       </svg>
 
       <ExploreDropDown />
-      <button className="hidden lg:block  w-36 h-12 text-slate-400 font-bold">
+      <button
+        onClick={() => setOpenLoginModal(true)}
+        className="hidden lg:block  w-36 h-12 text-slate-400 font-bold"
+      >
         Sign Up
       </button>
     </nav>

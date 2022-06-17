@@ -9,8 +9,9 @@ import UserProfile from "./components/userProfile/UserProfile";
 import SearchResult from "./components/home/SearchResult";
 import ImageGallery from "./components/gallery/ImageGallery";
 import UserNameModal from "./components/userProfile/UserNameModal";
-import ImageCarousel from "./components/gallery/ImageCarousel";
+import ImageCarousel from "./components/Modal/ImageCarousel";
 import Navbar from "./components/navbar/Navbar";
+import LoginModal from "./components/Modal/LoginModal";
 
 function App() {
   const [query, setQuery] = useState(undefined);
@@ -21,13 +22,14 @@ function App() {
   const [galleryArrayIndex, setGalleryArrayIndex] = useState(undefined);
   const [pictures, setPictures] = useState([]);
   const [loginName, setLoginName] = useState("");
-  const [openLoginModal, setOpenLoginModal] = useState(true);
   const [userName, setUserName] = useState("");
   const [searchQuery, setSearchQuery] = useState("messi");
   const [inputSearchQuery, setInputSearchQuery] = useState("messi");
   const [userLikeImage, setUserLikeImage] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [navRouter, setNavRouter] = useState("");
+  const [isCarouselOpen, setIsCarouselOpen] = useState(true);
+  const [openLoginModal, setOpenLoginModal] = useState(false);
 
   useEffect(() => {
     setTimeout(() => {
@@ -52,8 +54,6 @@ function App() {
         setNextImage,
         loginName,
         setLoginName,
-        openLoginModal,
-        setOpenLoginModal,
         userName,
         setUserName,
         searchQuery,
@@ -64,13 +64,16 @@ function App() {
         setUserLikeImage,
         showModal,
         setShowModal,
+        setOpenLoginModal,
       }}
     >
       <Router>
         {/* {largeImage && <ImageModal />} */}
-        {largeImage && <ImageCarousel />}
+        {/* {largeImage && <ImageCarousel />} */}
         {/* {openLoginModal && <UserNameModal />} */}
         <Navbar />
+        {/* {isCarouselOpen && <ImageCarousel />} */}
+        {openLoginModal && <LoginModal setOpenLoginModal={setOpenLoginModal} />}
         <Routes>
           <Route
             path="/"
