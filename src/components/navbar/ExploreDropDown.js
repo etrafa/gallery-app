@@ -1,15 +1,9 @@
 import { useState } from "react";
 
 const ExploreDropDown = () => {
-  const [isDropDownOpen, setIsDropDownOpen] = useState(false);
-
   return (
     <div className="relative group hidden lg:block">
-      <div
-        onMouseEnter={() => setIsDropDownOpen(true)}
-        onMouseLeave={() => setIsDropDownOpen(false)}
-        className="flex items-center cursor-pointer text-slate-400 font-bold hover:text-slate-600 "
-      >
+      <div className="flex items-center cursor-pointer text-slate-400 font-bold hover:text-slate-600 ">
         <span className="z-50">Explore</span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -26,11 +20,11 @@ const ExploreDropDown = () => {
       </div>
       <div className="hidden group-hover:block absolute py-4 rounded-xl top-5 z-50 w-36 -left-8 h-auto bg-white text-center">
         <ul>
-          <li className="pt-2">Travel</li>
-          <li className="pt-2">Travel</li>
-          <li className="pt-2">Travel</li>
-          <li className="pt-2">Travel</li>
-          <li className="pt-2">Travel</li>
+          <li className="pt-4 cursor-pointer hover:bg-gray-100">Japan</li>
+          <li className="pt-4 cursor-pointer hover:bg-gray-100">Forest</li>
+          <li className="pt-4 cursor-pointer hover:bg-gray-100">Kitchen</li>
+          <li className="pt-4 cursor-pointer hover:bg-gray-100">Antique</li>
+          <li className="pt-4 cursor-pointer hover:bg-gray-100">Waterfall</li>
         </ul>
       </div>
     </div>

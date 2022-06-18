@@ -72,7 +72,7 @@ function App() {
         {/* {largeImage && <ImageModal />} */}
         {/* {largeImage && <ImageCarousel />} */}
         {/* {openLoginModal && <UserNameModal />} */}
-        <Navbar />
+        <Navbar query={query} setQuery={setQuery} />
         {/* {isCarouselOpen && <ImageCarousel />} */}
         {openLoginModal && <LoginModal setOpenLoginModal={setOpenLoginModal} />}
         <Routes>

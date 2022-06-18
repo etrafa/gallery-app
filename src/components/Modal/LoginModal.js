@@ -62,8 +62,12 @@ const LoginModal = ({ setOpenLoginModal }) => {
         </div>
 
         {/* SIGN IN OR SIGN UP MODAL  */}
-        {isSignUpModalOpen && <SignUpModal />}
-        {isSignInModalOpen && <SignInModal />}
+        {isSignUpModalOpen && (
+          <SignUpModal setOpenLoginModal={setOpenLoginModal} />
+        )}
+        {isSignInModalOpen && (
+          <SignInModal setOpenLoginModal={setOpenLoginModal} />
+        )}
       </div>
     </div>
   );

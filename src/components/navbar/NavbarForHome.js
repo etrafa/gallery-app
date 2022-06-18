@@ -1,14 +1,14 @@
 //logo
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import { useAuth } from "../../firebase/firebaseConfig";
+import { useAuth, logOut } from "../../firebase/firebaseConfig";
 import { GalleryContext } from "../Context/GalleryContext";
 import Logo from "../navbar/assets/logo.png";
 
 //component
 import ExploreDropDown from "./ExploreDropDown";
 
-const NavbarComp = () => {
+const NavbarComp = ({ query, setQuery }) => {
   //change navbar color when scrolling
   const [color, setColor] = useState(false);
   const { setOpenLoginModal } = useContext(GalleryContext);
@@ -42,6 +42,7 @@ const NavbarComp = () => {
         }
       >
         <svg
+          onClick={() => console.log(query)}
           className="absolute right-2 w-7 h-7 text-gray-500 cursor-pointer"
           fill="currentColor"
           viewBox="0 0 20 20"
@@ -54,6 +55,7 @@ const NavbarComp = () => {
           ></path>
         </svg>
         <input
+          onChange={(e) => setQuery(e.target.value)}
           className="w-full h-12 rounded-lg bg-search-bg placeholder:text-xl pl-6"
           type="text"
           placeholder="Search for free pictures"
@@ -69,11 +71,26 @@ const NavbarComp = () => {
         <div
           className={
             color
-              ? "w-10 h-10 bg-green-400 rounded-full flex justify-center items-center"
-              : "w-10 h-10 bg-white rounded-full flex justify-center items-center"
+              ? "w-10 h-10 bg-green-400 rounded-full relative cursor-pointer group"
+              : "w-10 h-10 bg-white rounded-full relative cursor-pointer group"
           }
         >
-          <span className="text-2xl text-main-gray-text font-medium">E</span>
+          <span className="w-10 h-10 text-2xl text-main-gray-text font-medium flex justify-center items-center">
+            E
+          </span>
+          <div className="hidden group-hover:block absolute py-4 rounded-xl top-9 z-50 w-36 -left-28  h-auto bg-white text-center">
+            <ul>
+              <li className="pt-4 cursor-pointer hover:bg-gray-100 text-main-gray-text font-medium">
+                Profile
+              </li>
+              <li
+                onClick={logOut}
+                className="pt-4 cursor-pointer hover:bg-gray-100 text-main-gray-text font-medium"
+              >
+                Sign Out
+              </li>
+            </ul>
+          </div>
         </div>
       ) : (
         <button

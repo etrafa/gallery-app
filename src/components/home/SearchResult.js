@@ -24,10 +24,9 @@ const SearchResult = ({ query }) => {
 
   return (
     <>
-      <h2 className="text-2xl font-semibold text-main-gray-text my-12">
+      <h2 className="text-3xl font-semibold text-main-gray-text mt-36 my-6 text-center">
         Free Stocks Photo
       </h2>
-
       {error && <div>An error happened. Please try again.</div>}
       {loading && <div>Loading...</div>}
       {data && (

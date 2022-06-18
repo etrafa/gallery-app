@@ -77,7 +77,7 @@ import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import NavbarForHome from "./NavbarForHome";
 
-const Navbar = () => {
+const Navbar = ({ query, setQuery }) => {
   //get PathName URL
   const pathURL = useLocation();
 
@@ -87,7 +87,7 @@ const Navbar = () => {
     setPathName(pathURL.pathname);
   }, [pathName]);
 
-  return <NavbarForHome />;
+  return <NavbarForHome query={query} setQuery={setQuery} />;
 };
 
 export default Navbar;

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { signIn } from "../../firebase/firebaseConfig";
 
-const SignInModal = () => {
+const SignInModal = ({ setOpenLoginModal }) => {
   const [userLoginInformation, setUserLoginInformation] = useState({
     email: "",
     password: "",
@@ -15,8 +15,10 @@ const SignInModal = () => {
     });
   };
 
-  const handleLogin = () => {
+  const handleLogin = (e) => {
+    e.preventDefault();
     signIn(userLoginInformation.email, userLoginInformation.password);
+    setOpenLoginModal(false);
   };
 
   return (
@@ -81,7 +83,7 @@ const SignInModal = () => {
           placeholder="Password"
         />
         <button
-          onClick={handleLogin}
+          onClick={(e) => handleLogin(e)}
           className="bg-green-800 text-white w-8/12 h-12 mx-auto mt-4 rounded hover:bg-green-600"
         >
           Login
