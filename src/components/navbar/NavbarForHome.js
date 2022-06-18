@@ -1,6 +1,7 @@
 //logo
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../firebase/firebaseConfig";
 import { GalleryContext } from "../Context/GalleryContext";
 import Logo from "../navbar/assets/logo.png";
 
@@ -18,6 +19,9 @@ const NavbarComp = () => {
   };
 
   window.addEventListener("scroll", changeColor);
+
+  //TRACK IF USER LOGGED IN
+  const currentUser = useAuth();
 
   return (
     <nav
@@ -55,28 +59,30 @@ const NavbarComp = () => {
           placeholder="Search for free pictures"
         />
       </div>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        className="h-8 w-8 lg:hidden"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="gray"
-        strokeWidth={2}
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M4 6h16M4 12h16M4 18h16"
-        />
-      </svg>
 
       <ExploreDropDown />
-      <button
-        onClick={() => setOpenLoginModal(true)}
-        className="hidden lg:block  w-36 h-12 text-slate-400 font-bold"
-      >
-        Sign Up
-      </button>
+
+      {/* //!SHOW SIGN UP COMPONENT IF USER HAS NOT LOGGED IN 
+        //?OR SHOW PROFILE COMPONENT IF USER HAS LOGGED IN */}
+
+      {currentUser ? (
+        <div
+          className={
+            color
+              ? "w-10 h-10 bg-green-400 rounded-full flex justify-center items-center"
+              : "w-10 h-10 bg-white rounded-full flex justify-center items-center"
+          }
+        >
+          <span className="text-2xl text-main-gray-text font-medium">E</span>
+        </div>
+      ) : (
+        <button
+          onClick={() => setOpenLoginModal(true)}
+          className="hidden lg:block  w-36 h-12 text-slate-400 font-bold"
+        >
+          Sign Up
+        </button>
+      )}
     </nav>
   );
 };

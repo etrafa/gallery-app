@@ -34,7 +34,7 @@ export const signUp = async (email, password, name) => {
 //signin
 
 export const signIn = async (email, password) => {
-  await signInWithEmailAndPassword(email, password);
+  await signInWithEmailAndPassword(auth, email, password);
 };
 
 //logout

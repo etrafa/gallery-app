@@ -1,4 +1,24 @@
+import { useState } from "react";
+import { signIn } from "../../firebase/firebaseConfig";
+
 const SignInModal = () => {
+  const [userLoginInformation, setUserLoginInformation] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (event) => {
+    let userInformationInput = { [event.target.name]: event.target.value };
+    setUserLoginInformation({
+      ...userLoginInformation,
+      ...userInformationInput,
+    });
+  };
+
+  const handleLogin = () => {
+    signIn(userLoginInformation.email, userLoginInformation.password);
+  };
+
   return (
     <div className="my-10 w-full">
       <h1 className="text-center text-4xl text-main-gray-text font-bold">
@@ -45,6 +65,7 @@ const SignInModal = () => {
       <h4 className="text-center mt-6 text-sm">OR</h4>
       <form className="flex flex-col">
         <input
+          onChange={(e) => handleChange(e)}
           className="mx-auto border w-11/12 h-12 my-2 pl-4 tracking-wider"
           type="email"
           name="email"
@@ -52,13 +73,17 @@ const SignInModal = () => {
           placeholder="Email"
         />
         <input
+          onChange={(e) => handleChange(e)}
           className="mx-auto border w-11/12 h-12 my-2 pl-4 tracking-wider"
           type="password"
           name="password"
           required
           placeholder="Password"
         />
-        <button className="bg-green-800 text-white w-8/12 h-12 mx-auto mt-4 rounded hover:bg-green-600">
+        <button
+          onClick={handleLogin}
+          className="bg-green-800 text-white w-8/12 h-12 mx-auto mt-4 rounded hover:bg-green-600"
+        >
           Login
         </button>
       </form>
