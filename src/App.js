@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { GalleryContext } from "./components/Context/GalleryContext";
+import { auth } from "./firebase/firebaseConfig";
 
 //components
 import Gallery from "./components/gallery/Gallery";
@@ -36,6 +37,8 @@ function App() {
       setShowModal(false);
     }, 200);
   }, []);
+
+  console.log(auth.currentUser);
 
   return (
     <GalleryContext.Provider

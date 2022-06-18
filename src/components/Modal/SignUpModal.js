@@ -1,4 +1,32 @@
+import { useState } from "react";
+
+//firebase signup function
+import { signUp } from "../../firebase/firebaseConfig";
+
 const SignUpModal = () => {
+  //STORE USER INFORMATION
+  const [newUserInformation, setNewUserInformation] = useState({
+    username: "",
+    email: "",
+    password: "",
+    confirm_password: "",
+  });
+
+  //ONCHANGE, SAVE USER INFORMATION
+  const handleChange = (event) => {
+    let newUser = { [event.target.name]: event.target.value };
+    setNewUserInformation({ ...newUserInformation, ...newUser });
+  };
+
+  //ONCLICK SEND USER INFORMATION TO THE DB AND REGISTER
+  const registerUser = (e) => {
+    signUp(
+      newUserInformation.email,
+      newUserInformation.password,
+      newUserInformation.username
+    );
+  };
+
   return (
     <div className="my-10 w-full lg:overflow-auto h-96">
       <h1 className="text-center text-4xl text-main-gray-text font-bold mx-12">
@@ -45,6 +73,7 @@ const SignUpModal = () => {
       <h4 className="text-center mt-6 text-sm">OR</h4>
       <form className="flex flex-col">
         <input
+          onChange={(e) => handleChange(e)}
           className="mx-auto border w-11/12 h-12 my-2 pl-4 tracking-wider"
           type="text"
           name="username"
@@ -52,6 +81,7 @@ const SignUpModal = () => {
           placeholder="Username"
         />
         <input
+          onChange={(e) => handleChange(e)}
           className="mx-auto border w-11/12 h-12 my-2 pl-4 tracking-wider"
           type="email"
           name="email"
@@ -59,6 +89,7 @@ const SignUpModal = () => {
           placeholder="Email"
         />
         <input
+          onChange={(e) => handleChange(e)}
           className="mx-auto border w-11/12 h-12 my-2 pl-4 tracking-wider"
           type="password"
           name="password"
@@ -66,13 +97,17 @@ const SignUpModal = () => {
           placeholder="Password"
         />
         <input
+          onChange={(e) => handleChange(e)}
           className="mx-auto border w-11/12 h-12 my-2 pl-4 tracking-wider"
           type="password"
-          name="password"
+          name="confirm_password"
           required
           placeholder="Confirm Password"
         />
-        <button className="bg-green-800 text-white w-8/12 h-12 mx-auto mt-4 rounded hover:bg-green-600">
+        <button
+          onClick={registerUser}
+          className="bg-green-800 text-white w-8/12 h-12 mx-auto mt-4 rounded hover:bg-green-600"
+        >
           Sign up
         </button>
       </form>
