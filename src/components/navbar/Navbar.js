@@ -1,8 +1,12 @@
 import NavbarForHome from "./NavbarForHome";
 import NavbarForOtherPages from "./NavbarForOtherPages";
 
-const Navbar = ({ query, setQuery }) => {
-  return window.location.pathname === "/" ? (
+import { useLocation } from "react-router-dom";
+
+const Navbar = ({ setQuery }) => {
+  const location = useLocation();
+
+  return location.pathname === "/" ? (
     <NavbarForHome setQuery={setQuery} />
   ) : (
     <NavbarForOtherPages setQuery={setQuery} />
