@@ -81,7 +81,7 @@ const NavbarComp = ({ setQuery }) => {
         />
       </div>
 
-      <ExploreDropDown color={color} />
+      <ExploreDropDown color={color} setQuery={setQuery} />
 
       {/* //!SHOW SIGN UP COMPONENT IF USER HAS NOT LOGGED IN 
         //?OR SHOW PROFILE COMPONENT IF USER HAS LOGGED IN */}

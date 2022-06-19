@@ -56,7 +56,7 @@ const NavbarForOtherPages = ({ setQuery }) => {
         />
       </div>
 
-      <ExploreDropDown />
+      <ExploreDropDown setQuery={setQuery} />
 
       {/* //!SHOW SIGN UP COMPONENT IF USER HAS NOT LOGGED IN 
     //?OR SHOW PROFILE COMPONENT IF USER HAS LOGGED IN */}
@@ -89,7 +89,7 @@ const NavbarForOtherPages = ({ setQuery }) => {
       ) : (
         <button
           onClick={() => setOpenLoginModal(true)}
-          className="hidden lg:block  w-36 h-12 text-slate-400 font-bold"
+          className="hidden lg:block  w-36 h-12 text-slate-400 font-bold border hover:bg-gray-50"
         >
           Sign Up
         </button>
