@@ -1,12 +1,18 @@
-//logo
-import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+//react - react router
+import { useContext, useState, useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
+//firebase
 import { useAuth, logOut } from "../../firebase/firebaseConfig";
+
+//context api
 import { GalleryContext } from "../Context/GalleryContext";
-import Logo from "../navbar/assets/logo.png";
 
 //component
 import ExploreDropDown from "./ExploreDropDown";
+
+//logo
+import Logo from "../navbar/assets/logo.png";
 
 const NavbarComp = ({ query, setQuery }) => {
   //change navbar color when scrolling
@@ -22,6 +28,12 @@ const NavbarComp = ({ query, setQuery }) => {
 
   //TRACK IF USER LOGGED IN
   const currentUser = useAuth();
+
+  //useNavigate
+  const navigate = useNavigate();
+
+  //useRef (for tracking search input)
+  const searchBarRef = useRef();
 
   return (
     <nav
@@ -42,7 +54,10 @@ const NavbarComp = ({ query, setQuery }) => {
         }
       >
         <svg
-          onClick={() => console.log(query)}
+          onClick={() => {
+            setQuery(searchBarRef.current.value);
+            navigate(`/search/${searchBarRef.current.value}`);
+          }}
           className="absolute right-2 w-7 h-7 text-gray-500 cursor-pointer"
           fill="currentColor"
           viewBox="0 0 20 20"
@@ -54,8 +69,9 @@ const NavbarComp = ({ query, setQuery }) => {
             clipRule="evenodd"
           ></path>
         </svg>
+
         <input
-          onChange={(e) => setQuery(e.target.value)}
+          ref={searchBarRef}
           className="w-full h-12 rounded-lg bg-search-bg placeholder:text-xl pl-6"
           type="text"
           placeholder="Search for free pictures"

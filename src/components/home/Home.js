@@ -1,9 +1,3 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import Navbar from "../navbar/Navbar";
-
-//styling
-import "./Home.css";
 import SearchResult from "./SearchResult";
 
 const Home = ({ query, setQuery }) => {
@@ -33,7 +27,7 @@ const Home = ({ query, setQuery }) => {
           />
         </div>
       </div>
-      <SearchResult />
+      <SearchResult query={"istanbul"} />
     </div>
   );
 };

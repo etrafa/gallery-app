@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { GalleryContext } from "./components/Context/GalleryContext";
-import { useAuth } from "./firebase/firebaseConfig";
 
 //components
 import Gallery from "./components/gallery/Gallery";
@@ -31,6 +30,8 @@ function App() {
   const [navRouter, setNavRouter] = useState("");
   const [isCarouselOpen, setIsCarouselOpen] = useState(true);
   const [openLoginModal, setOpenLoginModal] = useState(false);
+
+  console.log(query);
 
   useEffect(() => {
     setTimeout(() => {
@@ -85,7 +86,11 @@ function App() {
             element={<Gallery pictures={pictures} setPictures={setPictures} />}
           />
           {/* <Route path="/user-profile" element={<UserProfile />} /> */}
-          <Route path="/search" element={<SearchResult query={query} />} />
+          {/* <Route path="/search" element={<SearchResult query={query} />} /> */}
+          <Route
+            path="/search/:query"
+            element={<SearchResult query={query} />}
+          />
           <Route element={<ImageGallery />} />
         </Routes>
       </Router>

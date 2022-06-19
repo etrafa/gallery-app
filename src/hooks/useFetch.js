@@ -1,11 +1,21 @@
 import { useState, useEffect } from "react";
 
-export const useFetch = (url, page) => {
+export const useFetch = (url, query) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [queryTracker, setQueryTracker] = useState("");
 
   useEffect(() => {
+    //clean the data array every time user make new search.
+    // setData([]);
+
+    setQueryTracker(query);
+    if (queryTracker !== query) {
+      console.log("changed");
+      setData([]);
+    }
+
     const fetchData = async () => {
       try {
         setLoading(true);
@@ -24,5 +34,5 @@ export const useFetch = (url, page) => {
     fetchData();
   }, [url]);
 
-  return { data, loading, error };
+  return { data, setData, loading, error };
 };

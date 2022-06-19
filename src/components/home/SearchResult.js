@@ -11,9 +11,11 @@ import { useFetch } from "../../hooks/useFetch";
 const SearchResult = ({ query }) => {
   const [page, setPage] = useState(1);
 
+  //EMPTY ARRAY
+
   const { data, loading, error } = useFetch(
-    `https://api.unsplash.com/search/photos?page=${page}&query=minimal&client_id=${process.env.REACT_APP_API_KEY}`,
-    page
+    `https://api.unsplash.com/search/photos?page=${page}&query=${query}&client_id=${process.env.REACT_APP_API_KEY}`,
+    query
   );
 
   const breakpoints = {
@@ -35,6 +37,7 @@ const SearchResult = ({ query }) => {
           dataLength={data?.length}
           hasMore={true}
           scrollThreshold={0.8}
+          endMessage={"It looks like you came to the end. 😒"}
         >
           <Masonry
             breakpointCols={breakpoints}
