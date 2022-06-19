@@ -81,7 +81,7 @@ const NavbarComp = ({ setQuery }) => {
         />
       </div>
 
-      <ExploreDropDown />
+      <ExploreDropDown color={color} />
 
       {/* //!SHOW SIGN UP COMPONENT IF USER HAS NOT LOGGED IN 
         //?OR SHOW PROFILE COMPONENT IF USER HAS LOGGED IN */}
@@ -116,7 +116,11 @@ const NavbarComp = ({ setQuery }) => {
       ) : (
         <button
           onClick={() => setOpenLoginModal(true)}
-          className="hidden lg:block  w-36 h-12 text-slate-400 font-bold"
+          className={
+            color
+              ? "hidden lg:block  w-36 h-12 text-slate-400 font-bold border hover:bg-gray-50"
+              : "hidden lg:block  w-36 h-12 text-white font-bold hover:text-black border hover:bg-white"
+          }
         >
           Sign Up
         </button>

@@ -1,15 +1,18 @@
-import { useState } from "react";
-
-const ExploreDropDown = () => {
+const ExploreDropDown = ({ color }) => {
   return (
     <div className="relative group hidden lg:block">
-      <div className="flex items-center cursor-pointer text-slate-400 font-bold hover:text-slate-600 ">
+      <div
+        className={
+          color
+            ? "flex items-center cursor-pointer text-slate-400 font-bold hover:text-slate-600"
+            : "flex items-center cursor-pointer text-white font-bold hover:text-slate-600"
+        }
+      >
         <span className="z-50">Explore</span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="h-5 w-5 "
+          className={color ? "h-5 w-5 fill-gray-500" : "h-5 w-5 fill-white"}
           viewBox="0 0 20 20"
-          fill="gray"
         >
           <path
             fillRule="evenodd"
