@@ -26,9 +26,15 @@ const SearchResult = ({ query }) => {
 
   return (
     <>
-      <h2 className="text-3xl font-semibold text-main-gray-text mt-36 my-6 text-center">
-        Free Stocks Photo
-      </h2>
+      {query === "istanbul" ? (
+        <h2 className="text-3xl font-semibold text-main-gray-text mt-36 my-6 text-center">
+          Free Stocks Photo
+        </h2>
+      ) : (
+        <h2 className="text-3xl font-semibold text-main-gray-text mt-36 my-6 text-center">
+          Results for {query?.charAt(0).toUpperCase() + query?.slice(1)}
+        </h2>
+      )}
       {error && <div>An error happened. Please try again.</div>}
       {loading && <div>Loading...</div>}
       {data && (

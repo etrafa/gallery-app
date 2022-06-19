@@ -1,18 +1,14 @@
-import { useContext } from "react";
-
-import { GalleryContext } from "../Context/GalleryContext";
-import Navbar from "../navbar/Navbar";
+import { useAuth } from "../../firebase/firebaseConfig";
 
 const UserInformation = () => {
-  const { loginName } = useContext(GalleryContext);
+  const currentUser = useAuth();
+
+  console.log(currentUser);
 
   return (
-    <div>
-      <Navbar />
-      <div className="text-center mt-24">
-        <h2 className="font-black border-b-4 inline-block">
-          {loginName.toUpperCase()}
-        </h2>
+    <div className="">
+      <div className="w-24 h-24 bg-green-500 mx-auto rounded-full flex justify-center items-center">
+        <span className="text-white font-bold text-5xl">E</span>
       </div>
     </div>
   );

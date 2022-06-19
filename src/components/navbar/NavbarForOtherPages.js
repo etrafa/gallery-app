@@ -1,6 +1,8 @@
-//react - react router
-import { useContext, useState, useRef } from "react";
+import { useContext, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
+
+//logo
+import Logo from "../navbar/assets/logo.png";
 
 //firebase
 import { useAuth, logOut } from "../../firebase/firebaseConfig";
@@ -8,53 +10,26 @@ import { useAuth, logOut } from "../../firebase/firebaseConfig";
 //context api
 import { GalleryContext } from "../Context/GalleryContext";
 
-//component
+//components
 import ExploreDropDown from "./ExploreDropDown";
 
-//logo
-import Logo from "../navbar/assets/logo.png";
-
-const NavbarComp = ({ setQuery }) => {
-  //change navbar color when scrolling
-  const [color, setColor] = useState(false);
-  const { setOpenLoginModal } = useContext(GalleryContext);
-
-  const changeColor = () => {
-    if (window.scrollY >= 90) setColor(true);
-    else setColor(false);
-  };
-
-  window.addEventListener("scroll", changeColor);
-
-  //TRACK IF USER LOGGED IN
-  const currentUser = useAuth();
-
-  //useNavigate
+const NavbarForOtherPages = ({ setQuery }) => {
   const navigate = useNavigate();
-
-  //change navbar style based on the URL. SHOW DIFFERENT NAV FOR HOME PAGE AND REST OF THE PAGE
 
   //useRef (for tracking search input)
   const searchBarRef = useRef();
 
+  const { setOpenLoginModal } = useContext(GalleryContext);
+
+  //TRACK IF USER LOGGED IN
+  const currentUser = useAuth();
+
   return (
-    <nav
-      className={
-        color
-          ? "w-full h-20 bg-white border-b flex justify-between items-center border-gray-50 fixed top-0 z-50 px-4 lg:px-24"
-          : "w-full h-20 bg-transparent flex justify-between items-center border-gray-50 fixed top-0 z-50 px-4 lg:px-24"
-      }
-    >
+    <nav className="w-full h-20 bg-white border-b flex justify-between items-center border-gray-50 fixed top-0 z-50 px-4 lg:px-24">
       <Link to="/">
         <img className="w-10 h-10 cursor-pointer" src={Logo} alt="logo" />
       </Link>
-      <div
-        className={
-          color
-            ? "relative flex items-center w-9/12 lg:w-7/12"
-            : "relative flex items-center w-9/12 lg:w-7/12 opacity-0"
-        }
-      >
+      <div className={"relative flex items-center w-9/12 lg:w-7/12"}>
         <svg
           onClick={() => {
             setQuery(searchBarRef.current.value);
@@ -84,14 +59,12 @@ const NavbarComp = ({ setQuery }) => {
       <ExploreDropDown />
 
       {/* //!SHOW SIGN UP COMPONENT IF USER HAS NOT LOGGED IN 
-        //?OR SHOW PROFILE COMPONENT IF USER HAS LOGGED IN */}
+    //?OR SHOW PROFILE COMPONENT IF USER HAS LOGGED IN */}
 
       {currentUser ? (
         <div
           className={
-            color
-              ? "w-10 h-10 bg-green-400 rounded-full relative cursor-pointer group"
-              : "w-10 h-10 bg-white rounded-full relative cursor-pointer group"
+            "w-10 h-10 bg-green-400 rounded-full relative cursor-pointer group"
           }
         >
           <span className="w-10 h-10 text-2xl text-main-gray-text font-medium flex justify-center items-center">
@@ -125,4 +98,4 @@ const NavbarComp = ({ setQuery }) => {
   );
 };
 
-export default NavbarComp;
+export default NavbarForOtherPages;

@@ -4,9 +4,8 @@ import UserLike from "./UserLike";
 
 const UserProfile = () => {
   return (
-    <div>
+    <div className="mt-32">
       <UserInformation />
-      <UserLike />
     </div>
   );
 };

@@ -20,11 +20,15 @@ const SignUpModal = () => {
 
   //ONCLICK SEND USER INFORMATION TO THE DB AND REGISTER
   const registerUser = (e) => {
-    signUp(
-      newUserInformation.email,
-      newUserInformation.password,
-      newUserInformation.username
-    );
+    if (newUserInformation.password !== newUserInformation.confirm_password) {
+      alert("Passwort must be same!");
+    } else {
+      signUp(
+        newUserInformation.email,
+        newUserInformation.password,
+        newUserInformation.username
+      );
+    }
   };
 
   return (

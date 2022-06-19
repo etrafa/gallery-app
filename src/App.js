@@ -31,8 +31,6 @@ function App() {
   const [isCarouselOpen, setIsCarouselOpen] = useState(true);
   const [openLoginModal, setOpenLoginModal] = useState(false);
 
-  console.log(query);
-
   useEffect(() => {
     setTimeout(() => {
       setShowModal(false);
@@ -92,6 +90,7 @@ function App() {
             element={<SearchResult query={query} />}
           />
           <Route element={<ImageGallery />} />
+          <Route path="/user-profile" element={<UserProfile />} />
         </Routes>
       </Router>
     </GalleryContext.Provider>

@@ -8,11 +8,9 @@ export const useFetch = (url, query) => {
 
   useEffect(() => {
     //clean the data array every time user make new search.
-    // setData([]);
 
     setQueryTracker(query);
     if (queryTracker !== query) {
-      console.log("changed");
       setData([]);
     }
 
