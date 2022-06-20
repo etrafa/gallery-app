@@ -1,13 +1,25 @@
 //context api
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { GalleryContext } from "../../Context/GalleryContext";
-import CarouselArrows from "./CarouselArrows";
 
 //components
 import CarouselButtons from "./CarouselButtons";
+import CarouselArrows from "./CarouselArrows";
 
 const ImageCarousel = ({ setIsCarouselOpen }) => {
-  const { pictureInformation } = useContext(GalleryContext);
+  const { pictureInformation, setPictureInformation, imageArrayFetch } =
+    useContext(GalleryContext);
+  const [pictureIndex, setPictureIndex] = useState(pictureInformation?.listId);
+
+  console.log(imageArrayFetch[pictureIndex]);
+
+  useEffect(() => {
+    setPictureInformation(imageArrayFetch[pictureIndex]);
+    console.log(pictureIndex);
+    if (pictureIndex >= imageArrayFetch.length || pictureIndex <= 0) {
+      setPictureIndex(1);
+    }
+  }, [pictureIndex]);
 
   return (
     <div className="w-full ml-auto fixed min-h-screen top-0 bg-black bg-opacity-75 z-50">
@@ -31,7 +43,7 @@ const ImageCarousel = ({ setIsCarouselOpen }) => {
             ></path>
           </svg>
         </button>
-        <CarouselArrows />
+        <CarouselArrows setPictureIndex={setPictureIndex} />
         <div className="py-6 px-6 lg:px-8">
           <div className="w-full h-24 flex flex-col lg:flex-row items-center justify-between">
             <div className="flex items-center">

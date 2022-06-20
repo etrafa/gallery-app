@@ -1,7 +1,8 @@
-const CarouselArrows = () => {
+const CarouselArrows = ({ setPictureIndex }) => {
   return (
     <div>
       <svg
+        onClick={() => setPictureIndex((prev) => prev - 1)}
         xmlns="http://www.w3.org/2000/svg"
         className="h-12 w-12 absolute top-1/2 transform translate-y-1/2 left-4 cursor-pointer"
         fill="none"
@@ -16,6 +17,7 @@ const CarouselArrows = () => {
         />
       </svg>
       <svg
+        onClick={() => setPictureIndex((prev) => prev + 1)}
         xmlns="http://www.w3.org/2000/svg"
         className="h-12 w-12 absolute top-1/2 transform translate-y-1/2 right-4 cursor-pointer"
         fill="none"
