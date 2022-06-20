@@ -2,6 +2,8 @@ import { useState } from "react";
 
 //firebase signup function
 import { signUp } from "../../firebase/firebaseConfig";
+import { signInWithFacebook } from "../../firebase/firebaseConfig";
+import { signInWithGoogle } from "../../firebase/firebaseConfig";
 
 const SignUpModal = () => {
   //STORE USER INFORMATION
@@ -47,7 +49,10 @@ const SignUpModal = () => {
         </svg>
         Continue with Facebook
       </button>
-      <button className="text-black border mx-auto flex mt-6 w-11/12 h-12 items-center rounded-lg pl-4 font-bold hover:bg-slate-100">
+      <button
+        onClick={signInWithGoogle}
+        className="text-black border mx-auto flex mt-6 w-11/12 h-12 items-center rounded-lg pl-4 font-bold hover:bg-slate-100"
+      >
         <svg
           className="w-7 h-7 mr-8"
           viewBox="0 0 24 24"

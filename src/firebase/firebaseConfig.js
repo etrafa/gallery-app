@@ -4,8 +4,11 @@ import {
   getAuth,
   onAuthStateChanged,
   signInWithEmailAndPassword,
+  signInWithPopup,
+  FacebookAuthProvider,
   signOut,
   updateProfile,
+  GoogleAuthProvider,
 } from "firebase/auth";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -22,7 +25,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-export const auth = getAuth();
+export const auth = getAuth(app);
 
 //signup
 
@@ -31,10 +34,25 @@ export const signUp = async (email, password, name) => {
   await updateProfile(auth.currentUser, { displayName: name });
 };
 
-//signin
+//signin with Email
 
 export const signIn = async (email, password) => {
   await signInWithEmailAndPassword(auth, email, password);
+};
+
+//signin with facebook
+
+export const signInWithFacebook = async () => {
+  const provider = new FacebookAuthProvider();
+  await signInWithPopup(auth, provider);
+  console.log(signInWithPopup);
+};
+
+//signin with google
+export const signInWithGoogle = async (modal) => {
+  const googleProvider = new GoogleAuthProvider();
+  await signInWithPopup(auth, googleProvider);
+  modal(false);
 };
 
 //logout

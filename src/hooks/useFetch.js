@@ -15,6 +15,7 @@ export const useFetch = (url, query) => {
     setQueryTracker(query);
     if (queryTracker !== query) {
       setData([]);
+      setImageArrayFetch([]);
     }
 
     const fetchData = async () => {
