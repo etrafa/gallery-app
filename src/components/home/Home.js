@@ -27,7 +27,7 @@ const Home = ({ query, setQuery }) => {
           />
         </div>
       </div>
-      <SearchResult query={"istanbul"} />
+      <SearchResult query={"chicago"} />
     </div>
   );
 };

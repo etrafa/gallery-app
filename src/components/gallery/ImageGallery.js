@@ -4,6 +4,7 @@ import {
   AiOutlinePlus,
   AiOutlineArrowDown,
 } from "react-icons/ai";
+import { useFetch } from "../../hooks/useFetch";
 
 import { GalleryContext } from "../Context/GalleryContext";
 
@@ -18,7 +19,12 @@ const ImageGallery = ({ props, listId }) => {
     setUserLikeImage,
     setImageModal,
     setShowModal,
+    setIsCarouselOpen,
+    pictureInformation,
+    setPictureInformation,
   } = useContext(GalleryContext);
+
+  const { data } = useFetch();
 
   // add pictures user likes to their library
   const styleHeartIcon = (id) => {
@@ -52,13 +58,6 @@ const ImageGallery = ({ props, listId }) => {
 
         <div className="group relative overflow-hidden">
           <img
-            onClick={() => {
-              setShowModal(true);
-              setLargeImage(props.urls.full);
-              setGalleryArrayIndex(listId);
-              setUploaderImageModal(props.user.profile_image.large);
-              setUploaderNameModal(props.user.name);
-            }}
             className="cursor-pointer hover:opacity-80 mt-1"
             src={props.urls.regular}
             alt={props.user.name}
@@ -106,11 +105,8 @@ const ImageGallery = ({ props, listId }) => {
         <div className="group relative overflow-hidden">
           <img
             onClick={() => {
-              setShowModal(true);
-              setLargeImage(props.urls.full);
-              setGalleryArrayIndex(listId);
-              setUploaderImageModal(props.user.profile_image.large);
-              setUploaderNameModal(props.user.name);
+              setIsCarouselOpen(true);
+              setPictureInformation({ ...props, listId });
             }}
             className="cursor-pointer hover:opacity-80 mt-4"
             src={props.urls.regular}

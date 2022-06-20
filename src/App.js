@@ -1,5 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { useEffect, useState } from "react";
+
+//context api
 import { GalleryContext } from "./components/Context/GalleryContext";
 
 //components
@@ -8,8 +10,7 @@ import Home from "./components/home/Home";
 import UserProfile from "./components/userProfile/UserProfile";
 import SearchResult from "./components/home/SearchResult";
 import ImageGallery from "./components/gallery/ImageGallery";
-import UserNameModal from "./components/userProfile/UserNameModal";
-import ImageCarousel from "./components/Modal/ImageCarousel";
+import ImageCarousel from "./components/Modal/ImageCarousel/ImageCarousel";
 import Navbar from "./components/navbar/Navbar";
 import LoginModal from "./components/Modal/LoginModal";
 
@@ -27,15 +28,17 @@ function App() {
   const [inputSearchQuery, setInputSearchQuery] = useState("messi");
   const [userLikeImage, setUserLikeImage] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const [navRouter, setNavRouter] = useState("");
-  const [isCarouselOpen, setIsCarouselOpen] = useState(true);
+  const [isCarouselOpen, setIsCarouselOpen] = useState(false);
   const [openLoginModal, setOpenLoginModal] = useState(false);
+  const [pictureInformation, setPictureInformation] = useState();
 
   useEffect(() => {
     setTimeout(() => {
       setShowModal(false);
     }, 200);
   }, []);
+
+  console.log(pictureInformation);
 
   return (
     <GalleryContext.Provider
@@ -65,14 +68,16 @@ function App() {
         showModal,
         setShowModal,
         setOpenLoginModal,
+        setIsCarouselOpen,
+        pictureInformation,
+        setPictureInformation,
       }}
     >
       <Router>
-        {/* {largeImage && <ImageModal />} */}
-        {/* {largeImage && <ImageCarousel />} */}
-        {/* {openLoginModal && <UserNameModal />} */}
         <Navbar query={query} setQuery={setQuery} />
-        {/* {isCarouselOpen && <ImageCarousel />} */}
+        {isCarouselOpen && (
+          <ImageCarousel setIsCarouselOpen={setIsCarouselOpen} />
+        )}
         {openLoginModal && <LoginModal setOpenLoginModal={setOpenLoginModal} />}
         <Routes>
           <Route
