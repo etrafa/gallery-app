@@ -1,6 +1,7 @@
 //context api
 import { useContext } from "react";
 import { GalleryContext } from "../../Context/GalleryContext";
+import CarouselArrows from "./CarouselArrows";
 
 //components
 import CarouselButtons from "./CarouselButtons";
@@ -30,6 +31,7 @@ const ImageCarousel = ({ setIsCarouselOpen }) => {
             ></path>
           </svg>
         </button>
+        <CarouselArrows />
         <div className="py-6 px-6 lg:px-8">
           <div className="w-full h-24 flex flex-col lg:flex-row items-center justify-between">
             <div className="flex items-center">
@@ -44,8 +46,9 @@ const ImageCarousel = ({ setIsCarouselOpen }) => {
             </div>
             <CarouselButtons pictureInformation={pictureInformation} />
           </div>
+
           <img
-            className="max-h-screen mx-auto object-contain"
+            className="mx-auto max-h-[calc(100vh_-_9rem)]"
             src={pictureInformation?.urls.regular}
             alt={pictureInformation?.alt_description}
           />

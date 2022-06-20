@@ -31,14 +31,13 @@ function App() {
   const [isCarouselOpen, setIsCarouselOpen] = useState(false);
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const [pictureInformation, setPictureInformation] = useState();
+  const [imageArrayFetch, setImageArrayFetch] = useState([]);
 
   useEffect(() => {
     setTimeout(() => {
       setShowModal(false);
     }, 200);
   }, []);
-
-  console.log(pictureInformation);
 
   return (
     <GalleryContext.Provider
@@ -71,6 +70,8 @@ function App() {
         setIsCarouselOpen,
         pictureInformation,
         setPictureInformation,
+        imageArrayFetch,
+        setImageArrayFetch,
       }}
     >
       <Router>

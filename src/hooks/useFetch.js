@@ -1,6 +1,9 @@
+import { useContext } from "react";
 import { useState, useEffect } from "react";
+import { GalleryContext } from "../components/Context/GalleryContext";
 
 export const useFetch = (url, query) => {
+  const { setImageArrayFetch } = useContext(GalleryContext);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -22,6 +25,7 @@ export const useFetch = (url, query) => {
         const result = data.results;
         setLoading(false);
         setData((prev) => [...prev, ...result]);
+        setImageArrayFetch((prev) => [...prev, ...result]);
         setError(null);
       } catch (err) {
         setLoading(false);

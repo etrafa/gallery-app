@@ -11,20 +11,12 @@ import { GalleryContext } from "../Context/GalleryContext";
 const ImageGallery = ({ props, listId }) => {
   const [heartIcon, setHeartIcon] = useState(true);
   const {
-    setLargeImage,
-    setGalleryArrayIndex,
-    setUploaderImageModal,
-    setUploaderNameModal,
     userLikeImage,
     setUserLikeImage,
-    setImageModal,
-    setShowModal,
     setIsCarouselOpen,
-    pictureInformation,
     setPictureInformation,
+    imageArrayFetch,
   } = useContext(GalleryContext);
-
-  const { data } = useFetch();
 
   // add pictures user likes to their library
   const styleHeartIcon = (id) => {
