@@ -1,4 +1,8 @@
-const CarouselButtons = ({ pictureInformation }) => {
+const CarouselButtons = ({
+  pictureInformation,
+  isLikedByUser,
+  setIsLikedByUser,
+}) => {
   return (
     <div className="mr-12 flex items-center">
       <button className="flex w-24 h-12 mx-4 border text-center rounded-xl items-center justify-center hover:bg-gray-100">
@@ -18,7 +22,10 @@ const CarouselButtons = ({ pictureInformation }) => {
         </svg>
         <span className="ml-1 text-main-gray-text font-semibold">Save</span>
       </button>
-      <button className="flex w-24 h-12 mx-4 border text-center rounded-xl items-center justify-center hover:bg-gray-100">
+      <button
+        onClick={() => console.log("hey")}
+        className="flex w-24 h-12 mx-4 border text-center rounded-xl items-center justify-center hover:bg-gray-100"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-6 w-6"

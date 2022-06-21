@@ -10,16 +10,33 @@ const ImageCarousel = ({ setIsCarouselOpen }) => {
   const { pictureInformation, setPictureInformation, imageArrayFetch } =
     useContext(GalleryContext);
   const [pictureIndex, setPictureIndex] = useState(pictureInformation?.listId);
-
-  console.log(imageArrayFetch[pictureIndex]);
+  const [isLikedByUser, setIsLikedByUser] = useState();
 
   useEffect(() => {
     setPictureInformation(imageArrayFetch[pictureIndex]);
-    console.log(pictureIndex);
     if (pictureIndex >= imageArrayFetch.length || pictureIndex <= 0) {
       setPictureIndex(1);
     }
+
+    if (imageArrayFetch[pictureIndex]?.liked_by_user === true) {
+      setIsLikedByUser(true);
+    } else if (imageArrayFetch[pictureIndex]?.liked_by_user === false) {
+      setIsLikedByUser(false);
+    }
+
+    console.log(imageArrayFetch[pictureIndex], isLikedByUser);
   }, [pictureIndex]);
+
+  const likeHandler = () => {
+    if (imageArrayFetch[pictureIndex]?.liked_by_user === true) {
+      imageArrayFetch[pictureIndex].liked_by_user = false;
+      setIsLikedByUser(false);
+    } else {
+      imageArrayFetch[pictureIndex].liked_by_user = true;
+      setIsLikedByUser(true);
+    }
+    console.log(imageArrayFetch[pictureIndex]);
+  };
 
   return (
     <div className="w-full ml-auto fixed min-h-screen top-0 bg-black bg-opacity-75 z-50">
@@ -55,11 +72,17 @@ const ImageCarousel = ({ setIsCarouselOpen }) => {
               <span className="ml-4 text-main-gray-text font-medium text-lg tracking-wide">
                 {pictureInformation?.user?.name}
               </span>
+              {isLikedByUser ? <span>Liked</span> : <span>Not Liked</span>}
             </div>
-            <CarouselButtons pictureInformation={pictureInformation} />
+            <CarouselButtons
+              isLikedByUser={isLikedByUser}
+              setIsLikedByUser={setIsLikedByUser}
+              pictureInformation={pictureInformation}
+            />
           </div>
 
           <img
+            onClick={likeHandler}
             className="mx-auto max-h-[calc(100vh_-_9rem)]"
             src={pictureInformation?.urls.regular}
             alt={pictureInformation?.alt_description}
