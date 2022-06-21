@@ -27,17 +27,6 @@ const ImageCarousel = ({ setIsCarouselOpen }) => {
     console.log(imageArrayFetch[pictureIndex], isLikedByUser);
   }, [pictureIndex]);
 
-  const likeHandler = () => {
-    if (imageArrayFetch[pictureIndex]?.liked_by_user === true) {
-      imageArrayFetch[pictureIndex].liked_by_user = false;
-      setIsLikedByUser(false);
-    } else {
-      imageArrayFetch[pictureIndex].liked_by_user = true;
-      setIsLikedByUser(true);
-    }
-    console.log(imageArrayFetch[pictureIndex]);
-  };
-
   return (
     <div className="w-full ml-auto fixed min-h-screen top-0 bg-black bg-opacity-75 z-50">
       <div className="absolute bg-white rounded-lg shadow top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-11/12 h-screen max-w-screen-2xl">
@@ -72,9 +61,10 @@ const ImageCarousel = ({ setIsCarouselOpen }) => {
               <span className="ml-4 text-main-gray-text font-medium text-lg tracking-wide">
                 {pictureInformation?.user?.name}
               </span>
-              {isLikedByUser ? <span>Liked</span> : <span>Not Liked</span>}
             </div>
             <CarouselButtons
+              imageArrayFetch={imageArrayFetch}
+              pictureIndex={pictureIndex}
               isLikedByUser={isLikedByUser}
               setIsLikedByUser={setIsLikedByUser}
               pictureInformation={pictureInformation}
@@ -82,7 +72,6 @@ const ImageCarousel = ({ setIsCarouselOpen }) => {
           </div>
 
           <img
-            onClick={likeHandler}
             className="mx-auto max-h-[calc(100vh_-_9rem)]"
             src={pictureInformation?.urls.regular}
             alt={pictureInformation?.alt_description}

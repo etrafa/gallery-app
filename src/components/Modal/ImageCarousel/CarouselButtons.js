@@ -2,7 +2,19 @@ const CarouselButtons = ({
   pictureInformation,
   isLikedByUser,
   setIsLikedByUser,
+  imageArrayFetch,
+  pictureIndex,
 }) => {
+  const likeHandler = () => {
+    if (imageArrayFetch[pictureIndex]?.liked_by_user === true) {
+      imageArrayFetch[pictureIndex].liked_by_user = false;
+      setIsLikedByUser(false);
+    } else {
+      imageArrayFetch[pictureIndex].liked_by_user = true;
+      setIsLikedByUser(true);
+    }
+    console.log(imageArrayFetch[pictureIndex]);
+  };
   return (
     <div className="mr-12 flex items-center">
       <button className="flex w-24 h-12 mx-4 border text-center rounded-xl items-center justify-center hover:bg-gray-100">
@@ -23,12 +35,12 @@ const CarouselButtons = ({
         <span className="ml-1 text-main-gray-text font-semibold">Save</span>
       </button>
       <button
-        onClick={() => console.log("hey")}
+        onClick={likeHandler}
         className="flex w-24 h-12 mx-4 border text-center rounded-xl items-center justify-center hover:bg-gray-100"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6"
+          className={isLikedByUser ? "h-6 w-6 fill-main-heart-red" : "h-6 w-6"}
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -40,7 +52,11 @@ const CarouselButtons = ({
             d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
           />
         </svg>
-        <span className="ml-1 text-main-gray-text font-semibold">Like</span>
+        {isLikedByUser ? (
+          <span className="ml-1 text-main-gray-text font-semibold">Liked</span>
+        ) : (
+          <span className="ml-1 text-main-gray-text font-semibold">Like</span>
+        )}
       </button>
       <a
         target="_blank"

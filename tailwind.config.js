@@ -11,6 +11,7 @@ module.exports = {
         "heart-background": "#F15151",
         "search-bg": "#f7f7f7",
         "main-gray-text": "#2c343e",
+        "main-heart-red": "#ff0000",
       },
     },
   },
