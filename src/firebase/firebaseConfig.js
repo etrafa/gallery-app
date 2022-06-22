@@ -1,4 +1,9 @@
 import { initializeApp } from "firebase/app";
+
+//firebase firestore
+import { deleteDoc, doc, getFirestore, setDoc } from "firebase/firestore";
+
+//firebase auth
 import {
   createUserWithEmailAndPassword,
   getAuth,
@@ -26,9 +31,9 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
+const db = getFirestore(app);
 
 //signup
-
 export const signUp = async (email, password, name) => {
   await createUserWithEmailAndPassword(auth, email, password);
   await updateProfile(auth.currentUser, { displayName: name });
@@ -71,4 +76,14 @@ export const useAuth = () => {
   }, []);
 
   return currentUser;
+};
+
+//add data to the database
+export const addDataToDB = async (collectionName, props) => {
+  await setDoc(doc(db, collectionName, props.id), { ...props });
+};
+
+//remove data from the database
+export const removeDataFromDB = async (collectionName, props) => {
+  await deleteDoc(doc(db, collectionName, props.id));
 };

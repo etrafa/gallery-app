@@ -1,3 +1,8 @@
+import {
+  addDataToDB,
+  removeDataFromDB,
+} from "../../../firebase/firebaseConfig";
+
 const CarouselButtons = ({
   pictureInformation,
   isLikedByUser,
@@ -9,9 +14,11 @@ const CarouselButtons = ({
     if (imageArrayFetch[pictureIndex]?.liked_by_user === true) {
       imageArrayFetch[pictureIndex].liked_by_user = false;
       setIsLikedByUser(false);
+      removeDataFromDB("likes", imageArrayFetch[pictureIndex]);
     } else {
       imageArrayFetch[pictureIndex].liked_by_user = true;
       setIsLikedByUser(true);
+      addDataToDB("likes", imageArrayFetch[pictureIndex]);
     }
     console.log(imageArrayFetch[pictureIndex]);
   };
