@@ -1,7 +1,12 @@
 import {
   addDataToDB,
   removeDataFromDB,
+  useAuth,
 } from "../../../firebase/firebaseConfig";
+
+//context api
+import { GalleryContext } from "../../Context/GalleryContext";
+import { useContext } from "react";
 
 const CarouselButtons = ({
   pictureInformation,
@@ -10,6 +15,13 @@ const CarouselButtons = ({
   imageArrayFetch,
   pictureIndex,
 }) => {
+  //IF USER NOT SIGNED IN DON'T ALLOW ADD/REMOVE IMAGE
+  const currentUser = useAuth();
+  console.log(currentUser);
+
+  const { setOpenLoginModal } = useContext(GalleryContext);
+
+  //ADD AND REMOVE IMAGE FROM DATABASE
   const likeHandler = () => {
     if (imageArrayFetch[pictureIndex]?.liked_by_user === true) {
       imageArrayFetch[pictureIndex].liked_by_user = false;
@@ -22,6 +34,13 @@ const CarouselButtons = ({
     }
     console.log(imageArrayFetch[pictureIndex]);
   };
+
+  const showModalHandler = () => {
+    if (!currentUser) {
+      setOpenLoginModal(true);
+    }
+  };
+
   return (
     <div className="mr-12 flex items-center">
       <button className="flex w-24 h-12 mx-4 border text-center rounded-xl items-center justify-center hover:bg-gray-100">
@@ -42,7 +61,7 @@ const CarouselButtons = ({
         <span className="ml-1 text-main-gray-text font-semibold">Save</span>
       </button>
       <button
-        onClick={likeHandler}
+        onClick={currentUser ? likeHandler : showModalHandler}
         className="flex w-24 h-12 mx-4 border text-center rounded-xl items-center justify-center hover:bg-gray-100"
       >
         <svg
