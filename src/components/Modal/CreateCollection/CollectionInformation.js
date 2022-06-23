@@ -1,6 +1,9 @@
 const CollectionInformation = (props) => {
   return (
-    <button className="w-40 h-40 bg-search-bg rounded-lg relative hover:scale-105 mx-auto">
+    <button
+      onClick={props.clickHandler}
+      className="w-40 h-40 bg-search-bg rounded-lg relative hover:scale-105 mx-auto"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className="h-12 w-12 absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 fill-search-bg"

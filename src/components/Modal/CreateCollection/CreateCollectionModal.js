@@ -1,10 +1,28 @@
-import { Link } from "react-router-dom";
+//components
 import CollectionInformation from "./CollectionInformation";
+import NewCollectionModal from "./NewCollectionModal";
+
+//react
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const CreateCollectionModal = ({ setCreateCollectionModal }) => {
+  //this state will open when user wants to create new collection
+  const [newCollectionPage, setNewColectionPage] = useState(false);
+
   return (
-    <div className="w-full ml-auto fixed min-h-screen top-0 bg-black bg-opacity-75 z-50">
-      <div className="absolute bg-white rounded-lg shadow top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full lg:w-7/12 min-h-screen lg:min-h-fit max-w-screen-lg">
+    <div className="w-full ml-auto fixed min-h-screen top-0 bg-black bg-opacity-90 z-50">
+      <NewCollectionModal
+        setCreateCollectionModal={setCreateCollectionModal}
+        setNewColectionPage={setNewColectionPage}
+      />
+      <div
+        className={
+          newCollectionPage
+            ? "hidden"
+            : "absolute bg-white rounded-lg shadow top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full lg:w-7/12 min-h-screen lg:min-h-fit max-w-screen-lg"
+        }
+      >
         <button
           type="button"
           className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
@@ -33,12 +51,10 @@ const CreateCollectionModal = ({ setCreateCollectionModal }) => {
           </span>
         </Link>
         <div className="px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 w-full my-4 pt-1 lg:h-96 overflow-auto">
-          <CollectionInformation name="Create" />
-          <CollectionInformation name="Forest" />
-          <CollectionInformation name="Japanese" />
-          <CollectionInformation name="Coffee" />
-          <CollectionInformation name="Tea" />
-          <CollectionInformation name="Michigan" />
+          <CollectionInformation
+            name="Create"
+            clickHandler={() => setNewColectionPage(true)}
+          />
         </div>
       </div>
     </div>

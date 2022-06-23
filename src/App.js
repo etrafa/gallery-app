@@ -31,7 +31,7 @@ function App() {
   const [showModal, setShowModal] = useState(false);
   const [isCarouselOpen, setIsCarouselOpen] = useState(false);
   const [openLoginModal, setOpenLoginModal] = useState(false);
-  const [createCollectionModal, setCreateCollectionModal] = useState(false);
+  const [createCollectionModal, setCreateCollectionModal] = useState(true);
   const [pictureInformation, setPictureInformation] = useState();
   const [imageArrayFetch, setImageArrayFetch] = useState([]);
 

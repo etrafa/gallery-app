@@ -1,7 +1,14 @@
 import { initializeApp } from "firebase/app";
 
 //firebase firestore
-import { deleteDoc, doc, getFirestore, setDoc } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getFirestore,
+  setDoc,
+} from "firebase/firestore";
 
 //firebase auth
 import {
@@ -88,4 +95,11 @@ export const addDataToDB = async (collectionName, props) => {
 //remove data from the database
 export const removeDataFromDB = async (collectionName, props) => {
   await deleteDoc(doc(db, collectionName, props.id));
+};
+
+//create a new collection
+export const addNewCollectionToDB = async (collectionName, modal) => {
+  const collectionRef = collection(db, collectionName);
+  await addDoc(collectionRef, {});
+  modal(false);
 };

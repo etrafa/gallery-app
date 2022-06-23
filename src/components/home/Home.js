@@ -5,7 +5,7 @@ import SearchResult from "./SearchResult";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Home = ({ query, setQuery }) => {
+const Home = ({ setQuery }) => {
   const searchInputRef = useRef();
   const navigate = useNavigate();
 
