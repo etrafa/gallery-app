@@ -13,6 +13,7 @@ import ImageGallery from "./components/gallery/ImageGallery";
 import ImageCarousel from "./components/Modal/ImageCarousel/ImageCarousel";
 import Navbar from "./components/navbar/Navbar";
 import LoginModal from "./components/Modal/LoginModal";
+import CreateCollectionModal from "./components/Modal/CreateCollection/CreateCollectionModal";
 
 function App() {
   const [query, setQuery] = useState(undefined);
@@ -30,6 +31,7 @@ function App() {
   const [showModal, setShowModal] = useState(false);
   const [isCarouselOpen, setIsCarouselOpen] = useState(false);
   const [openLoginModal, setOpenLoginModal] = useState(false);
+  const [createCollectionModal, setCreateCollectionModal] = useState(false);
   const [pictureInformation, setPictureInformation] = useState();
   const [imageArrayFetch, setImageArrayFetch] = useState([]);
 
@@ -80,6 +82,11 @@ function App() {
           <ImageCarousel setIsCarouselOpen={setIsCarouselOpen} />
         )}
         {openLoginModal && <LoginModal setOpenLoginModal={setOpenLoginModal} />}
+        {createCollectionModal && (
+          <CreateCollectionModal
+            setCreateCollectionModal={setCreateCollectionModal}
+          />
+        )}
         <Routes>
           <Route
             path="/"

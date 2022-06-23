@@ -32,7 +32,6 @@ const CarouselButtons = ({
       setIsLikedByUser(true);
       addDataToDB("likes", imageArrayFetch[pictureIndex]);
     }
-    console.log(imageArrayFetch[pictureIndex]);
   };
 
   const showModalHandler = () => {

@@ -57,6 +57,7 @@ export const signInWithFacebook = async () => {
 export const signInWithGoogle = async (modal) => {
   const googleProvider = new GoogleAuthProvider();
   await signInWithPopup(auth, googleProvider);
+  window.location.reload();
   modal(false);
 };
 
@@ -64,6 +65,7 @@ export const signInWithGoogle = async (modal) => {
 
 export const logOut = async () => {
   await signOut(auth);
+  window.location.reload();
 };
 
 //authChange

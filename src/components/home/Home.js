@@ -1,6 +1,14 @@
+//components
 import SearchResult from "./SearchResult";
 
+//react
+import { useRef } from "react";
+import { useNavigate } from "react-router-dom";
+
 const Home = ({ query, setQuery }) => {
+  const searchInputRef = useRef();
+  const navigate = useNavigate();
+
   return (
     <div>
       <div className="relative bg-[url('./components//home/assets/wallpaper.jpg')] flex flex-col justify-center items-center w-full h-[calc(24rem_+_7rem)] bg-cover bg-center">
@@ -9,6 +17,11 @@ const Home = ({ query, setQuery }) => {
         </h1>
         <div className="w-11/12 max-w-screen-sm relative mt-12">
           <svg
+            onClick={() => {
+              setQuery(searchInputRef.current.value);
+              navigate(`/search/${searchInputRef.current.value}`);
+              searchInputRef.current.value = "";
+            }}
             className="absolute top-2.5 right-8 transform w-7 h-7 text-gray-500 cursor-pointer"
             fill="currentColor"
             viewBox="0 0 20 20"
@@ -21,13 +34,14 @@ const Home = ({ query, setQuery }) => {
             ></path>
           </svg>
           <input
+            ref={searchInputRef}
             className="w-full h-12 rounded-2xl border-none mx-auto block pl-6 "
             type="text"
             placeholder="Search for free photos"
           />
         </div>
       </div>
-      <SearchResult query={"chicago"} />
+      <SearchResult query={"istanbul"} />
     </div>
   );
 };
