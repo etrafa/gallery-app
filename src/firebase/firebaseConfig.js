@@ -103,21 +103,3 @@ export const addNewCollectionToDB = async (collectionName, modal, user) => {
   await addDoc(collectionRef, { uid: user.uid });
   modal(false);
 };
-
-//get document
-// export const useGetDocumentFromDB = async (collectionName, user) => {
-//   const [data, setData] = useState([]);
-
-//   const collectionRef = collection(db, collectionName);
-//   const q = query(collectionRef, where("uid", "==", user.uid));
-//   const res = await getDocs(q);
-
-//   setData(
-//     res.docs.map((item) => {
-//       return { ...item.data(), id: item.id };
-//     })
-
-//   );
-
-//   console.log(data);
-// };
