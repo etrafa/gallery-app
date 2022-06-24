@@ -31,7 +31,7 @@ function App() {
   const [showModal, setShowModal] = useState(false);
   const [isCarouselOpen, setIsCarouselOpen] = useState(false);
   const [openLoginModal, setOpenLoginModal] = useState(false);
-  const [createCollectionModal, setCreateCollectionModal] = useState(true);
+  const [createCollectionModal, setCreateCollectionModal] = useState(false);
   const [pictureInformation, setPictureInformation] = useState();
   const [imageArrayFetch, setImageArrayFetch] = useState([]);
 
@@ -79,7 +79,10 @@ function App() {
       <Router>
         <Navbar query={query} setQuery={setQuery} />
         {isCarouselOpen && (
-          <ImageCarousel setIsCarouselOpen={setIsCarouselOpen} />
+          <ImageCarousel
+            setCreateCollectionModal={setCreateCollectionModal}
+            setIsCarouselOpen={setIsCarouselOpen}
+          />
         )}
         {openLoginModal && <LoginModal setOpenLoginModal={setOpenLoginModal} />}
         {createCollectionModal && (

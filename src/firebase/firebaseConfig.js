@@ -38,7 +38,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
-const db = getFirestore(app);
+export const db = getFirestore(app);
 
 //signup
 export const signUp = async (email, password, name) => {
@@ -88,8 +88,8 @@ export const useAuth = () => {
 };
 
 //add data to the database
-export const addDataToDB = async (collectionName, props) => {
-  await setDoc(doc(db, collectionName, props.id), { ...props });
+export const addDataToDB = async (collectionName, props, user) => {
+  await setDoc(doc(db, collectionName, props.id), { ...props, uid: user.uid });
 };
 
 //remove data from the database
@@ -98,8 +98,26 @@ export const removeDataFromDB = async (collectionName, props) => {
 };
 
 //create a new collection
-export const addNewCollectionToDB = async (collectionName, modal) => {
+export const addNewCollectionToDB = async (collectionName, modal, user) => {
   const collectionRef = collection(db, collectionName);
-  await addDoc(collectionRef, {});
+  await addDoc(collectionRef, { uid: user.uid });
   modal(false);
 };
+
+//get document
+// export const useGetDocumentFromDB = async (collectionName, user) => {
+//   const [data, setData] = useState([]);
+
+//   const collectionRef = collection(db, collectionName);
+//   const q = query(collectionRef, where("uid", "==", user.uid));
+//   const res = await getDocs(q);
+
+//   setData(
+//     res.docs.map((item) => {
+//       return { ...item.data(), id: item.id };
+//     })
+
+//   );
+
+//   console.log(data);
+// };

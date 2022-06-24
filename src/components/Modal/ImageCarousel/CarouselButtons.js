@@ -14,10 +14,10 @@ const CarouselButtons = ({
   setIsLikedByUser,
   imageArrayFetch,
   pictureIndex,
+  setCreateCollectionModal,
 }) => {
   //IF USER NOT SIGNED IN DON'T ALLOW ADD/REMOVE IMAGE
   const currentUser = useAuth();
-  console.log(currentUser);
 
   const { setOpenLoginModal } = useContext(GalleryContext);
 
@@ -30,7 +30,7 @@ const CarouselButtons = ({
     } else {
       imageArrayFetch[pictureIndex].liked_by_user = true;
       setIsLikedByUser(true);
-      addDataToDB("likes", imageArrayFetch[pictureIndex]);
+      addDataToDB("likes", imageArrayFetch[pictureIndex], currentUser);
     }
   };
 
@@ -57,7 +57,12 @@ const CarouselButtons = ({
             d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"
           />
         </svg>
-        <span className="ml-1 text-main-gray-text font-semibold">Save</span>
+        <span
+          onClick={() => setCreateCollectionModal(true)}
+          className="ml-1 text-main-gray-text font-semibold"
+        >
+          Save
+        </span>
       </button>
       <button
         onClick={currentUser ? likeHandler : showModalHandler}

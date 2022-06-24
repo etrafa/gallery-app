@@ -6,7 +6,7 @@ import { GalleryContext } from "../../Context/GalleryContext";
 import CarouselButtons from "./CarouselButtons";
 import CarouselArrows from "./CarouselArrows";
 
-const ImageCarousel = ({ setIsCarouselOpen }) => {
+const ImageCarousel = ({ setIsCarouselOpen, setCreateCollectionModal }) => {
   const { pictureInformation, setPictureInformation, imageArrayFetch } =
     useContext(GalleryContext);
   const [pictureIndex, setPictureIndex] = useState(pictureInformation?.listId);
@@ -63,6 +63,7 @@ const ImageCarousel = ({ setIsCarouselOpen }) => {
               </span>
             </div>
             <CarouselButtons
+              setCreateCollectionModal={setCreateCollectionModal}
               imageArrayFetch={imageArrayFetch}
               pictureIndex={pictureIndex}
               isLikedByUser={isLikedByUser}

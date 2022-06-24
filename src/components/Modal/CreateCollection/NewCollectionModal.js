@@ -1,7 +1,10 @@
 import { useState } from "react";
 
 //add new collection to firebase function
-import { addNewCollectionToDB } from "../../../firebase/firebaseConfig";
+import {
+  addNewCollectionToDB,
+  useAuth,
+} from "../../../firebase/firebaseConfig";
 
 const NewCollectionModal = ({
   setCreateCollectionModal,
@@ -9,6 +12,8 @@ const NewCollectionModal = ({
 }) => {
   //choose a new collection name
   const [newCollectionName, setNewCollectionName] = useState("");
+
+  const currentUser = useAuth();
 
   return (
     <div className="absolute bg-white rounded-lg shadow top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-11/12  md:w-8/12 lg:w-4/12 max-w-screen-md">
@@ -37,7 +42,11 @@ const NewCollectionModal = ({
         </button>
         <button
           onClick={() => {
-            addNewCollectionToDB(newCollectionName, setNewColectionPage);
+            addNewCollectionToDB(
+              newCollectionName,
+              setNewColectionPage,
+              currentUser
+            );
             setNewCollectionName("");
           }}
           className={
