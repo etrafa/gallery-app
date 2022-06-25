@@ -1,6 +1,6 @@
 //components
-import SignInModal from "./SignInModal";
-import SignUpModal from "./SignUpModal";
+import SignInModal from "./SignInModal/SignInModal";
+import SignUpModal from "./SignUpModal/SignUpModal";
 
 import { useState } from "react";
 
@@ -63,7 +63,11 @@ const LoginModal = ({ setOpenLoginModal }) => {
 
         {/* SIGN IN OR SIGN UP MODAL  */}
         {isSignUpModalOpen && (
-          <SignUpModal setOpenLoginModal={setOpenLoginModal} />
+          <SignUpModal
+            setIsSignUpModalOpen={setIsSignUpModalOpen}
+            setIsSignInModalOpen={setIsSignInModalOpen}
+            setOpenLoginModal={setOpenLoginModal}
+          />
         )}
         {isSignInModalOpen && (
           <SignInModal setOpenLoginModal={setOpenLoginModal} />

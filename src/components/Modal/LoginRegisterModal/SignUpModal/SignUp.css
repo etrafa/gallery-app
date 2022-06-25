@@ -1,0 +1,11 @@
+.sign-up-container span {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: #ff0000;
+  padding-left: 2.25rem;
+  display: none;
+}
+
+.sign-up-container input:invalid[focused="true"] ~ span {
+  display: block;
+}

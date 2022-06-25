@@ -41,9 +41,13 @@ export const auth = getAuth(app);
 export const db = getFirestore(app);
 
 //signup
-export const signUp = async (email, password, name) => {
-  await createUserWithEmailAndPassword(auth, email, password);
-  await updateProfile(auth.currentUser, { displayName: name });
+export const signUp = async (email, password, name, errorModal) => {
+  try {
+    await createUserWithEmailAndPassword(auth, email, password);
+    await updateProfile(auth.currentUser, { displayName: name });
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 //signin with Email

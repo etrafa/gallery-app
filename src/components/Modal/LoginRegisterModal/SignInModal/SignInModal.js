@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { signIn } from "../../../firebase/firebaseConfig";
-import { signInWithGoogle } from "../../../firebase/firebaseConfig";
+import { signIn } from "../../../../firebase/firebaseConfig";
+import { signInWithGoogle } from "../../../../firebase/firebaseConfig";
 
 const SignInModal = ({ setOpenLoginModal }) => {
   const [userLoginInformation, setUserLoginInformation] = useState({

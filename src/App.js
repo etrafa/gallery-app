@@ -12,7 +12,7 @@ import SearchResult from "./components/home/SearchResult";
 import ImageGallery from "./components/gallery/ImageGallery";
 import ImageCarousel from "./components/Modal/ImageCarousel/ImageCarousel";
 import Navbar from "./components/navbar/Navbar";
-import LoginModal from "./components/Modal/LoginModal/LoginModal";
+import LoginModal from "./components/Modal/LoginRegisterModal/LoginRegister";
 import CreateCollectionModal from "./components/Modal/CreateCollection/CreateCollectionModal";
 
 function App() {
