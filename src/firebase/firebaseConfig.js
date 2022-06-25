@@ -21,6 +21,7 @@ import {
   signOut,
   updateProfile,
   GoogleAuthProvider,
+  updateCurrentUser,
 } from "firebase/auth";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -41,10 +42,11 @@ export const auth = getAuth(app);
 export const db = getFirestore(app);
 
 //signup
-export const signUp = async (email, password, name, errorModal) => {
+export const signUp = async (email, password, name) => {
   try {
     await createUserWithEmailAndPassword(auth, email, password);
     await updateProfile(auth.currentUser, { displayName: name });
+    window.location.reload();
   } catch (err) {
     console.log(err);
   }

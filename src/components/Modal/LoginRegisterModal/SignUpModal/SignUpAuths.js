@@ -2,7 +2,7 @@ import { signInWithGoogle } from "../../../../firebase/firebaseConfig";
 
 const SignUpAuths = () => {
   return (
-    <div>
+    <div className="my-6">
       <button className="text-black border mx-auto flex mt-6 w-11/12 h-12 items-center rounded-lg pl-4 font-bold hover:bg-slate-100">
         <svg
           className="w-8 h-8 mr-7"

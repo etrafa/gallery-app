@@ -3,6 +3,7 @@ import { useGetDocument } from "../../hooks/useGetDocument";
 
 const UserInformation = () => {
   const currentUser = useAuth();
+  console.log(currentUser);
 
   //fetch the liked pictures from user's database
   const likedImageDB = useGetDocument("likes", currentUser);

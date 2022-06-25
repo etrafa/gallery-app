@@ -1,13 +1,16 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 
 //firebase signup function
 import { signUp } from "../../../../firebase/firebaseConfig";
-import { signInWithFacebook } from "../../../../firebase/firebaseConfig";
 import SignUpForm from "./SignUpForm";
 import { signUpInputs } from "./SignUpInput";
+import SignUpAuths from "./SignUpAuths";
 
-const SignUpModal = ({ setIsSignUpModalOpen, setIsSignInModalOpen }) => {
+const SignUpModal = ({
+  setIsSignUpModalOpen,
+  setIsSignInModalOpen,
+  setOpenLoginModal,
+}) => {
   //STORE USER INFORMATION
   const [newUserInformation, setNewUserInformation] = useState({
     username: "",
@@ -22,11 +25,13 @@ const SignUpModal = ({ setIsSignUpModalOpen, setIsSignInModalOpen }) => {
     setNewUserInformation({ ...newUserInformation, ...newUser });
   };
 
-  const registerUser = () => {
+  const registerUser = (e) => {
+    e.preventDefault();
     signUp(
       newUserInformation.email,
       newUserInformation.password,
-      newUserInformation.username
+      newUserInformation.username,
+      setOpenLoginModal(false)
     );
   };
 
@@ -35,6 +40,7 @@ const SignUpModal = ({ setIsSignUpModalOpen, setIsSignInModalOpen }) => {
       <h1 className="text-center text-4xl text-main-gray-text font-bold mx-12">
         Sign up now and discover millions of pictures!
       </h1>
+      <SignUpAuths />
       <h4 className="text-center mt-6 text-sm">OR</h4>
       <form className="flex flex-col">
         {signUpInputs.map((input) => (

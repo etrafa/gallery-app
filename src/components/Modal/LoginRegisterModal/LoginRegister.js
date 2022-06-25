@@ -32,7 +32,7 @@ const LoginModal = ({ setOpenLoginModal }) => {
             ></path>
           </svg>
         </button>
-        <div className="px-6 flex justify-between mx-12 pt-1">
+        <div className="px-6 flex justify-between mx-12 my-4">
           <button
             className={
               isSignInModalOpen
