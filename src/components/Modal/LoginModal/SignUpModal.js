@@ -1,31 +1,46 @@
 import { useState } from "react";
-import { signIn } from "../../firebase/firebaseConfig";
-import { signInWithGoogle } from "../../firebase/firebaseConfig";
 
-const SignInModal = ({ setOpenLoginModal }) => {
-  const [userLoginInformation, setUserLoginInformation] = useState({
+//firebase signup function
+import { signUp } from "../../../firebase/firebaseConfig";
+import { signInWithFacebook } from "../../../firebase/firebaseConfig";
+import { signInWithGoogle } from "../../../firebase/firebaseConfig";
+
+const SignUpModal = ({ setOpenLoginModal }) => {
+  //STORE USER INFORMATION
+  const [newUserInformation, setNewUserInformation] = useState({
+    username: "",
     email: "",
     password: "",
+    confirm_password: "",
   });
 
+  const [showPasswordError, setShowPasswordError] = useState("");
+
+  //ONCHANGE, SAVE USER INFORMATION
   const handleChange = (event) => {
-    let userInformationInput = { [event.target.name]: event.target.value };
-    setUserLoginInformation({
-      ...userLoginInformation,
-      ...userInformationInput,
-    });
+    let newUser = { [event.target.name]: event.target.value };
+    setNewUserInformation({ ...newUserInformation, ...newUser });
   };
 
-  const handleLogin = (e) => {
+  //ONCLICK SEND USER INFORMATION TO THE DB AND REGISTER
+  const registerUser = (e) => {
     e.preventDefault();
-    signIn(userLoginInformation.email, userLoginInformation.password);
-    setOpenLoginModal(false);
+    if (newUserInformation.password !== newUserInformation.confirm_password) {
+      setShowPasswordError(true);
+    } else {
+      signUp(
+        newUserInformation.email,
+        newUserInformation.password,
+        newUserInformation.username
+      );
+      setOpenLoginModal(false);
+    }
   };
 
   return (
-    <div className="my-10 w-full">
-      <h1 className="text-center text-4xl text-main-gray-text font-bold">
-        Welcome back to Retina
+    <div className="my-10 w-full lg:overflow-auto h-96">
+      <h1 className="text-center text-4xl text-main-gray-text font-bold mx-12">
+        Sign up now and discover millions of pictures!
       </h1>
       <button className="text-black border mx-auto flex mt-6 w-11/12 h-12 items-center rounded-lg pl-4 font-bold hover:bg-slate-100">
         <svg
@@ -36,10 +51,10 @@ const SignInModal = ({ setOpenLoginModal }) => {
         >
           <path d="M400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48z" />
         </svg>
-        Login with Facebook
+        Continue with Facebook
       </button>
       <button
-        onClick={() => signInWithGoogle(setOpenLoginModal)}
+        onClick={signInWithGoogle}
         className="text-black border mx-auto flex mt-6 w-11/12 h-12 items-center rounded-lg pl-4 font-bold hover:bg-slate-100"
       >
         <svg
@@ -66,10 +81,18 @@ const SignInModal = ({ setOpenLoginModal }) => {
             />
           </g>
         </svg>
-        Login with Google
+        Continue with Google
       </button>
       <h4 className="text-center mt-6 text-sm">OR</h4>
       <form className="flex flex-col">
+        <input
+          onChange={(e) => handleChange(e)}
+          className="mx-auto border w-11/12 h-12 my-2 pl-4 tracking-wider"
+          type="text"
+          name="username"
+          required
+          placeholder="Username"
+        />
         <input
           onChange={(e) => handleChange(e)}
           className="mx-auto border w-11/12 h-12 my-2 pl-4 tracking-wider"
@@ -78,26 +101,54 @@ const SignInModal = ({ setOpenLoginModal }) => {
           required
           placeholder="Email"
         />
+
+        <div className="w-11/12 mx-auto">
+          <input
+            className=" border w-full h-12 my-2 pl-4 tracking-wider"
+            onChange={(e) => handleChange(e)}
+            type="password"
+            name="password"
+            required
+            placeholder="Password"
+          />
+          {showPasswordError && (
+            <div className="flex text-red-600 items-center mr-6">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              <span>Password must be same!</span>
+            </div>
+          )}
+        </div>
         <input
           onChange={(e) => handleChange(e)}
           className="mx-auto border w-11/12 h-12 my-2 pl-4 tracking-wider"
           type="password"
-          name="password"
+          name="confirm_password"
           required
-          placeholder="Password"
+          placeholder="Confirm Password"
         />
         <button
-          onClick={(e) => handleLogin(e)}
+          onClick={registerUser}
           className="bg-green-800 text-white w-8/12 h-12 mx-auto mt-4 rounded hover:bg-green-600"
         >
-          Login
+          Sign up
         </button>
       </form>
       <h4 className="text-sm text-center mt-4 cursor-pointer">
-        Forgot your password?
+        Have an account? Sign in here.
       </h4>
     </div>
   );
 };
 
-export default SignInModal;
+export default SignUpModal;

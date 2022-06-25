@@ -1,42 +1,31 @@
 import { useState } from "react";
+import { signIn } from "../../../firebase/firebaseConfig";
+import { signInWithGoogle } from "../../../firebase/firebaseConfig";
 
-//firebase signup function
-import { signUp } from "../../firebase/firebaseConfig";
-import { signInWithFacebook } from "../../firebase/firebaseConfig";
-import { signInWithGoogle } from "../../firebase/firebaseConfig";
-
-const SignUpModal = () => {
-  //STORE USER INFORMATION
-  const [newUserInformation, setNewUserInformation] = useState({
-    username: "",
+const SignInModal = ({ setOpenLoginModal }) => {
+  const [userLoginInformation, setUserLoginInformation] = useState({
     email: "",
     password: "",
-    confirm_password: "",
   });
 
-  //ONCHANGE, SAVE USER INFORMATION
   const handleChange = (event) => {
-    let newUser = { [event.target.name]: event.target.value };
-    setNewUserInformation({ ...newUserInformation, ...newUser });
+    let userInformationInput = { [event.target.name]: event.target.value };
+    setUserLoginInformation({
+      ...userLoginInformation,
+      ...userInformationInput,
+    });
   };
 
-  //ONCLICK SEND USER INFORMATION TO THE DB AND REGISTER
-  const registerUser = (e) => {
-    if (newUserInformation.password !== newUserInformation.confirm_password) {
-      alert("Passwort must be same!");
-    } else {
-      signUp(
-        newUserInformation.email,
-        newUserInformation.password,
-        newUserInformation.username
-      );
-    }
+  const handleLogin = (e) => {
+    e.preventDefault();
+    signIn(userLoginInformation.email, userLoginInformation.password);
+    setOpenLoginModal(false);
   };
 
   return (
-    <div className="my-10 w-full lg:overflow-auto h-96">
-      <h1 className="text-center text-4xl text-main-gray-text font-bold mx-12">
-        Sign up now and discover millions of pictures!
+    <div className="my-10 w-full">
+      <h1 className="text-center text-4xl text-main-gray-text font-bold">
+        Welcome back to Retina
       </h1>
       <button className="text-black border mx-auto flex mt-6 w-11/12 h-12 items-center rounded-lg pl-4 font-bold hover:bg-slate-100">
         <svg
@@ -47,14 +36,14 @@ const SignUpModal = () => {
         >
           <path d="M400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48z" />
         </svg>
-        Continue with Facebook
+        Login with Facebook
       </button>
       <button
-        onClick={signInWithGoogle}
+        onClick={() => signInWithGoogle(setOpenLoginModal)}
         className="text-black border mx-auto flex mt-6 w-11/12 h-12 items-center rounded-lg pl-4 font-bold hover:bg-slate-100"
       >
         <svg
-          className="w-7 h-7 mr-8"
+          className="w-7 h-7 mr-7 ml-1"
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
         >
@@ -77,18 +66,27 @@ const SignUpModal = () => {
             />
           </g>
         </svg>
-        Continue with Google
+        Login with Google
+      </button>
+      <button className="text-black border mx-auto flex mt-6 w-11/12 h-12 items-center rounded-lg pl-4 font-bold hover:bg-slate-100">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="w-7 h-7 mr-7 ml-1"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="blue"
+          strokeWidth={2}
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
+        </svg>
+        Login with Demo
       </button>
       <h4 className="text-center mt-6 text-sm">OR</h4>
       <form className="flex flex-col">
-        <input
-          onChange={(e) => handleChange(e)}
-          className="mx-auto border w-11/12 h-12 my-2 pl-4 tracking-wider"
-          type="text"
-          name="username"
-          required
-          placeholder="Username"
-        />
         <input
           onChange={(e) => handleChange(e)}
           className="mx-auto border w-11/12 h-12 my-2 pl-4 tracking-wider"
@@ -105,26 +103,18 @@ const SignUpModal = () => {
           required
           placeholder="Password"
         />
-        <input
-          onChange={(e) => handleChange(e)}
-          className="mx-auto border w-11/12 h-12 my-2 pl-4 tracking-wider"
-          type="password"
-          name="confirm_password"
-          required
-          placeholder="Confirm Password"
-        />
         <button
-          onClick={registerUser}
+          onClick={(e) => handleLogin(e)}
           className="bg-green-800 text-white w-8/12 h-12 mx-auto mt-4 rounded hover:bg-green-600"
         >
-          Sign up
+          Login
         </button>
       </form>
       <h4 className="text-sm text-center mt-4 cursor-pointer">
-        Have an account? Sign in here.
+        Forgot your password?
       </h4>
     </div>
   );
 };
 
-export default SignUpModal;
+export default SignInModal;
