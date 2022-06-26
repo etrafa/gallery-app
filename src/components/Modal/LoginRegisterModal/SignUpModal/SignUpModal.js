@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 //firebase signup function
-import { signUp } from "../../../../firebase/firebaseConfig";
+import { addDataToDB, auth, signUp } from "../../../../firebase/firebaseConfig";
 import SignUpForm from "./SignUpForm";
 import { signUpInputs } from "./SignUpInput";
 import SignUpAuths from "./SignUpAuths";
@@ -25,9 +25,9 @@ const SignUpModal = ({
     setNewUserInformation({ ...newUserInformation, ...newUser });
   };
 
-  const registerUser = (e) => {
+  const registerUser = async (e) => {
     e.preventDefault();
-    signUp(
+    await signUp(
       newUserInformation.email,
       newUserInformation.password,
       newUserInformation.username,

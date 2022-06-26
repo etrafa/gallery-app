@@ -68,7 +68,7 @@ const NavbarForOtherPages = ({ setQuery }) => {
           }
         >
           <span className="w-10 h-10 text-2xl text-main-gray-text font-medium flex justify-center items-center">
-            E
+            e
           </span>
           <div className="hidden group-hover:block absolute py-4 rounded-xl top-9 z-50 w-36 -left-28  h-auto bg-white text-center">
             <ul>
@@ -78,7 +78,10 @@ const NavbarForOtherPages = ({ setQuery }) => {
                 </li>
               </Link>
               <li
-                onClick={logOut}
+                onClick={() => {
+                  logOut();
+                  navigate("/");
+                }}
                 className="py-4 cursor-pointer hover:bg-gray-100 text-main-gray-text font-medium"
               >
                 Sign Out

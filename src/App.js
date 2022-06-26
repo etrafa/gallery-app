@@ -14,6 +14,8 @@ import ImageCarousel from "./components/Modal/ImageCarousel/ImageCarousel";
 import Navbar from "./components/navbar/Navbar";
 import LoginModal from "./components/Modal/LoginRegisterModal/LoginRegister";
 import CreateCollectionModal from "./components/Modal/CreateCollection/CreateCollectionModal";
+import UserLibrary from "./components/userProfile/UserLibrary";
+import { useAuth } from "./firebase/firebaseConfig";
 
 function App() {
   const [query, setQuery] = useState(undefined);
@@ -34,6 +36,8 @@ function App() {
   const [createCollectionModal, setCreateCollectionModal] = useState(false);
   const [pictureInformation, setPictureInformation] = useState();
   const [imageArrayFetch, setImageArrayFetch] = useState([]);
+
+  const currentUser = useAuth();
 
   useEffect(() => {
     setTimeout(() => {
@@ -106,6 +110,7 @@ function App() {
             element={<SearchResult query={query} />}
           />
           <Route element={<ImageGallery />} />
+          <Route path="/my-collections" element={<UserLibrary />} />
           <Route path="/user-profile" element={<UserProfile />} />
         </Routes>
       </Router>

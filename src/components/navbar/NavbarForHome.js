@@ -32,8 +32,6 @@ const NavbarComp = ({ setQuery }) => {
   //useNavigate
   const navigate = useNavigate();
 
-  //change navbar style based on the URL. SHOW DIFFERENT NAV FOR HOME PAGE AND REST OF THE PAGE
-
   //useRef (for tracking search input)
   const searchBarRef = useRef();
 
@@ -95,7 +93,8 @@ const NavbarComp = ({ setQuery }) => {
           }
         >
           <span className="w-10 h-10 text-2xl text-main-gray-text font-medium flex justify-center items-center">
-            E
+            {/* {(currentUser && currentUser?.displayName[0].toUpperCase()) || ""} */}
+            e
           </span>
           <div className="hidden group-hover:block absolute py-4 rounded-xl top-9 z-50 w-36 -left-28  h-auto bg-white text-center">
             <ul>

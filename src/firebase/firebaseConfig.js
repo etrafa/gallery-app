@@ -46,6 +46,8 @@ export const signUp = async (email, password, name) => {
   try {
     await createUserWithEmailAndPassword(auth, email, password);
     await updateProfile(auth.currentUser, { displayName: name });
+    const userID = auth?.currentUser?.uid;
+    await setDoc(doc(db, "users", userID), { id: userID });
     window.location.reload();
   } catch (err) {
     console.log(err);
@@ -70,6 +72,8 @@ export const signInWithFacebook = async () => {
 export const signInWithGoogle = async (modal) => {
   const googleProvider = new GoogleAuthProvider();
   await signInWithPopup(auth, googleProvider);
+  const userID = auth?.currentUser?.uid;
+  await setDoc(doc(db, "users", userID), { id: userID });
   window.location.reload();
   modal(false);
 };

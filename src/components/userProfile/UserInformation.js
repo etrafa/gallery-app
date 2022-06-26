@@ -3,22 +3,15 @@ import { useGetDocument } from "../../hooks/useGetDocument";
 
 const UserInformation = () => {
   const currentUser = useAuth();
-  console.log(currentUser);
 
-  //fetch the liked pictures from user's database
-  const likedImageDB = useGetDocument("likes", currentUser);
+  const userName = currentUser?.displayName;
 
   return (
-    <div className="">
+    <div className="text-center">
       <div className="w-24 h-24 bg-green-500 mx-auto rounded-full flex justify-center items-center">
-        <span className="text-white font-bold text-5xl">E</span>
+        <span className="text-white font-bold text-5xl">e</span>
       </div>
-      {likedImageDB &&
-        likedImageDB.map((item) => (
-          <div>
-            <img src={item?.urls?.small} alt="" />
-          </div>
-        ))}
+      <h2 className="mt-4 font-bold text-4xl">e</h2>
     </div>
   );
 };
