@@ -23,8 +23,6 @@ const ImageCarousel = ({ setIsCarouselOpen, setCreateCollectionModal }) => {
     } else if (imageArrayFetch[pictureIndex]?.liked_by_user === false) {
       setIsLikedByUser(false);
     }
-
-    console.log(imageArrayFetch[pictureIndex], isLikedByUser);
   }, [pictureIndex]);
 
   return (
@@ -71,7 +69,6 @@ const ImageCarousel = ({ setIsCarouselOpen, setCreateCollectionModal }) => {
               pictureInformation={pictureInformation}
             />
           </div>
-
           <img
             className="mx-auto max-h-[calc(100vh_-_9rem)]"
             src={pictureInformation?.urls.regular}

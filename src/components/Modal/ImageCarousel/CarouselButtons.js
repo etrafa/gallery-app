@@ -1,7 +1,7 @@
 import {
-  addDataToDB,
-  removeDataFromDB,
   useAuth,
+  saveLikedImageToDB,
+  deleteLikedImageFromDB,
 } from "../../../firebase/firebaseConfig";
 
 //context api
@@ -26,11 +26,11 @@ const CarouselButtons = ({
     if (imageArrayFetch[pictureIndex]?.liked_by_user === true) {
       imageArrayFetch[pictureIndex].liked_by_user = false;
       setIsLikedByUser(false);
-      removeDataFromDB("likes", imageArrayFetch[pictureIndex]);
+      deleteLikedImageFromDB(imageArrayFetch[pictureIndex]);
     } else {
       imageArrayFetch[pictureIndex].liked_by_user = true;
       setIsLikedByUser(true);
-      addDataToDB("likes", imageArrayFetch[pictureIndex], currentUser);
+      saveLikedImageToDB(imageArrayFetch[pictureIndex]);
     }
   };
 

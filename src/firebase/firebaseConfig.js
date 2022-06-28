@@ -10,6 +10,16 @@ import {
   setDoc,
 } from "firebase/firestore";
 
+import {
+  getDatabase,
+  set,
+  ref,
+  remove,
+  onValue,
+  get,
+  child,
+} from "firebase/database";
+
 //firebase auth
 import {
   createUserWithEmailAndPassword,
@@ -21,7 +31,6 @@ import {
   signOut,
   updateProfile,
   GoogleAuthProvider,
-  updateCurrentUser,
 } from "firebase/auth";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -47,7 +56,8 @@ export const signUp = async (email, password, name) => {
     await createUserWithEmailAndPassword(auth, email, password);
     await updateProfile(auth.currentUser, { displayName: name });
     const userID = auth?.currentUser?.uid;
-    await setDoc(doc(db, "users", userID), { id: userID });
+    // await setDoc(doc(db, "users", userID), { id: userID });
+
     window.location.reload();
   } catch (err) {
     console.log(err);
@@ -73,7 +83,7 @@ export const signInWithGoogle = async (modal) => {
   const googleProvider = new GoogleAuthProvider();
   await signInWithPopup(auth, googleProvider);
   const userID = auth?.currentUser?.uid;
-  await setDoc(doc(db, "users", userID), { id: userID });
+  // await setDoc(doc(db, "users", userID), { id: userID });
   window.location.reload();
   modal(false);
 };
@@ -97,19 +107,88 @@ export const useAuth = () => {
   return currentUser;
 };
 
-//add data to the database
-export const addDataToDB = async (collectionName, props, user) => {
-  await setDoc(doc(db, collectionName, props.id), { ...props, uid: user.uid });
-};
-
-//remove data from the database
-export const removeDataFromDB = async (collectionName, props) => {
-  await deleteDoc(doc(db, collectionName, props.id));
-};
-
 //create a new collection
 export const addNewCollectionToDB = async (collectionName, modal, user) => {
   const collectionRef = collection(db, collectionName);
   await addDoc(collectionRef, { uid: user.uid });
   modal(false);
+};
+
+//save users to the database
+export const saveUserToDB = async () => {
+  const db = getDatabase();
+  const userID = auth?.currentUser?.uid;
+  await set(ref(db, "users/" + userID), {
+    uid: userID,
+  });
+};
+
+//save user's liked image to the database
+export const saveLikedImageToDB = async (props) => {
+  const db = getDatabase();
+  const userID = auth?.currentUser?.uid;
+  await set(ref(db, "users/" + userID + "/likes/" + props.id), {
+    ...props,
+  });
+};
+
+//delete user's liked image from the database
+export const deleteLikedImageFromDB = async (props) => {
+  const db = getDatabase();
+  const userID = auth?.currentUser?.uid;
+  await remove(ref(db, "users/" + userID + "/likes/" + props.id));
+};
+
+//show user's liked image on the UI
+// export const useShowLikedImageFromDB = async () => {
+//   const [data, setData] = useState();
+//   const dbRef = getDatabase();
+//   const currentUser = useAuth();
+//   let results = [];
+//   const ref2 = ref(dbRef, "users/" + currentUser?.uid + "/likes");
+
+//   onValue(ref2, (pixel) => {
+//     pixel.forEach((doc) => {
+//       results.push(doc.val());
+//       console.log(results);
+//     });
+//   });
+
+//   return { results };
+// };
+
+//show user's liked image on the UI
+export const useShowLikedImageFromDB = () => {
+  const [data, setData] = useState([]);
+  let results = [];
+  const controller = new AbortController();
+  const signal = controller.signal;
+  const dbRef = ref(getDatabase());
+  const currentUser = useAuth();
+  useEffect(() => {
+    let isMounted = true;
+    get(child(dbRef, "users/" + currentUser?.uid + "/likes"))
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          snapshot.forEach((item) => {
+            results.push(item.val());
+          });
+          if (isMounted) {
+            setData(results);
+          }
+        } else {
+          console.log("No data available");
+        }
+      })
+
+      .catch((error) => {
+        console.error(error);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [results, results.length]);
+
+  return { data };
 };

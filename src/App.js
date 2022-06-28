@@ -16,6 +16,7 @@ import LoginModal from "./components/Modal/LoginRegisterModal/LoginRegister";
 import CreateCollectionModal from "./components/Modal/CreateCollection/CreateCollectionModal";
 import UserLibrary from "./components/userProfile/UserLibrary";
 import { useAuth } from "./firebase/firebaseConfig";
+import UserLikeCarousel from "./components/userProfile/UserLikeCarousel";
 
 function App() {
   const [query, setQuery] = useState(undefined);
@@ -32,12 +33,13 @@ function App() {
   const [userLikeImage, setUserLikeImage] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [isCarouselOpen, setIsCarouselOpen] = useState(false);
+  const [isLikeCarouselOpen, setIsLikeCarouselOpen] = useState(false);
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const [createCollectionModal, setCreateCollectionModal] = useState(false);
   const [pictureInformation, setPictureInformation] = useState();
   const [imageArrayFetch, setImageArrayFetch] = useState([]);
-
-  const currentUser = useAuth();
+  const [getSinglePic, setGetSinglePic] = useState({});
+  const [dataIndex, setDataIndex] = useState(0);
 
   useEffect(() => {
     setTimeout(() => {
@@ -78,6 +80,12 @@ function App() {
         setPictureInformation,
         imageArrayFetch,
         setImageArrayFetch,
+        isLikeCarouselOpen,
+        setIsLikeCarouselOpen,
+        getSinglePic,
+        setGetSinglePic,
+        dataIndex,
+        setDataIndex,
       }}
     >
       <Router>
@@ -89,6 +97,12 @@ function App() {
           />
         )}
         {openLoginModal && <LoginModal setOpenLoginModal={setOpenLoginModal} />}
+        {isLikeCarouselOpen && (
+          <UserLikeCarousel
+            isLikeCarouselOpen={isLikeCarouselOpen}
+            setIsLikeCarouselOpen={setIsLikeCarouselOpen}
+          />
+        )}
         {createCollectionModal && (
           <CreateCollectionModal
             setCreateCollectionModal={setCreateCollectionModal}
