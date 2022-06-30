@@ -5,7 +5,7 @@ import NewCollectionModal from "./NewCollectionModal";
 //react
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { collection, getDocs, query } from "firebase/firestore";
+import { collection, getDocs, onSnapshot, query } from "firebase/firestore";
 import { db, useAuth } from "../../../firebase/firebaseConfig";
 
 const CreateCollectionModal = ({
@@ -21,7 +21,7 @@ const CreateCollectionModal = ({
   const currentUser = useAuth();
 
   useEffect(() => {
-    const getData = async (user) => {
+    const getData = async () => {
       const q = query(collection(db, "users"));
       const snapshot = await getDocs(q);
       const data = snapshot.docs.map((doc) => ({
@@ -33,12 +33,15 @@ const CreateCollectionModal = ({
         const userCollectionQ = query(
           collection(db, `users/${currentUser.uid}/collections`)
         );
-        const collectionDetails = await getDocs(userCollectionQ);
-        const likeInfo = collectionDetails.docs.map((doc) => ({
-          ...doc.data(),
-          id: doc.id,
-        }));
-        setUserCollections(likeInfo);
+
+        const unsub = onSnapshot(userCollectionQ, (snapshot) => {
+          let result = [];
+          snapshot.docs.forEach((doc) => {
+            result.push(doc.data());
+          });
+          setUserCollections(result);
+        });
+        return () => unsub();
       });
     };
     getData();

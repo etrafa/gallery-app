@@ -9,6 +9,7 @@ import {
   getDoc,
   getDocs,
   getFirestore,
+  onSnapshot,
   query,
   setDoc,
 } from "firebase/firestore";
@@ -148,8 +149,7 @@ export const addNewCollectionToDB = async (collectionName, modal, userID) => {
 };
 
 //remove collection from database
-
-export const removeCollectionFromDB = async (props, user) => {
+export const removeCollectionFromDB = async (props, user, modal) => {
   const q = query(collection(db, "users"));
   const querySnapShot = await getDocs(q);
   const queryData = querySnapShot.docs.map((detail) => ({
@@ -159,6 +159,6 @@ export const removeCollectionFromDB = async (props, user) => {
 
   queryData.map(async (v) => {
     await deleteDoc(doc(db, `users/${user?.uid}/collections`, props));
-    console.log(user?.uid);
+    modal(false);
   });
 };

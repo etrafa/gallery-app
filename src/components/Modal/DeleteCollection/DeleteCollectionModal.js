@@ -31,13 +31,19 @@ const DeleteCollectionModal = ({ setDeleteCollectionModal }) => {
           />
         </svg>
         <div className="flex justify-around my-10">
-          <button className="border w-36 h-12 rounded-full font-medium hover:text-gray-600 hover:border-gray-600">
+          <button
+            onClick={() => setDeleteCollectionModal(false)}
+            className="border w-36 h-12 rounded-full font-medium hover:text-gray-600 hover:border-gray-600"
+          >
             Cancel
           </button>
           <button
             onClick={() => {
-              console.log(userCollectionName);
-              removeCollectionFromDB(userCollectionName, currentUser);
+              removeCollectionFromDB(
+                userCollectionName,
+                currentUser,
+                setDeleteCollectionModal
+              );
             }}
             className="w-36 h-12 bg-red-500 border rounded-full text-white font-medium tracking-widest hover:bg-white hover:text-red-500"
           >

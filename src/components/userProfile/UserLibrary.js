@@ -1,4 +1,4 @@
-import { collection, getDocs, query } from "firebase/firestore";
+import { collection, getDocs, onSnapshot, query } from "firebase/firestore";
 import { useContext, useEffect } from "react";
 import { useState } from "react";
 import { db, useAuth } from "../../firebase/firebaseConfig";
@@ -25,21 +25,27 @@ const UserLibrary = () => {
         const userCollectionQ = query(
           collection(db, `users/${currentUser.uid}/collections`)
         );
-        const collectionDetails = await getDocs(userCollectionQ);
-        const likeInfo = collectionDetails.docs.map((doc) => ({
-          ...doc.data(),
-          id: doc.id,
-        }));
-        setUserCollections(likeInfo);
+
+        const unsub = onSnapshot(userCollectionQ, (snapshot) => {
+          let result = [];
+          snapshot.docs.forEach((doc) => {
+            result.push(doc.data());
+          });
+          setUserCollections(result);
+        });
+        return () => unsub();
       });
     };
     getData();
   }, [currentUser]);
 
-  console.log(userCollections);
-
   return (
     <section>
+      {userCollections.length === 0 && (
+        <h1 className="text-4xl text-center mt-36 font-bold  leading-loose">
+          We couldn't find any collections. 😢
+        </h1>
+      )}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 max-w-screen-xl justify-between gap-12 mx-auto my-12">
         {userCollections &&
           userCollections.map((doc) => (
