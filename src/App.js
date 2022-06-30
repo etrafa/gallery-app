@@ -42,6 +42,7 @@ function App() {
   const [imageArrayFetch, setImageArrayFetch] = useState([]);
   const [getSinglePic, setGetSinglePic] = useState({});
   const [dataIndex, setDataIndex] = useState(0);
+  const [userCollectionName, setUserCollectionName] = useState();
 
   useEffect(() => {
     setTimeout(() => {
@@ -90,6 +91,8 @@ function App() {
         setDataIndex,
         deleteCollectionModal,
         setDeleteCollectionModal,
+        userCollectionName,
+        setUserCollectionName,
       }}
     >
       <Router>
@@ -109,6 +112,7 @@ function App() {
         )}
         {createCollectionModal && (
           <CreateCollectionModal
+            setIsCarouselOpen={setIsCarouselOpen}
             setCreateCollectionModal={setCreateCollectionModal}
           />
         )}

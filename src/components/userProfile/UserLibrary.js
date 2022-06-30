@@ -7,7 +7,8 @@ import { GalleryContext } from "../Context/GalleryContext";
 const UserLibrary = () => {
   const [userCollections, setUserCollections] = useState([]);
 
-  const { setDeleteCollectionModal } = useContext(GalleryContext);
+  const { setDeleteCollectionModal, setUserCollectionName } =
+    useContext(GalleryContext);
 
   const currentUser = useAuth();
 
@@ -45,7 +46,10 @@ const UserLibrary = () => {
             <div className="w-80 h-80 border mx-auto rounded-xl flex items-center justify-center cursor-pointer relative">
               <h2 className="text-center text-3xl">{doc?.id}</h2>
               <svg
-                onClick={() => setDeleteCollectionModal(true)}
+                onClick={() => {
+                  setDeleteCollectionModal(true);
+                  setUserCollectionName(doc?.id);
+                }}
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6 absolute bottom-4 right-4 hover:stroke-black"
                 fill="none"

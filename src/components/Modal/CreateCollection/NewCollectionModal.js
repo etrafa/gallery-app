@@ -51,7 +51,7 @@ const NewCollectionModal = ({
           }}
           className={
             newCollectionName
-              ? "border w-5/12 h-12 mx-4 rounded-lg bg-green-400 text-white font-semibold tracking-wider"
+              ? "border w-5/12 h-12 mx-4 rounded-lg bg-green-400 hover:bg-green-600 text-white font-semibold tracking-wider"
               : "border w-5/12 h-12 mx-4 rounded-lg cursor-not-allowed bg-search-bg text-gray-400 font-semibold tracking-wider"
           }
         >

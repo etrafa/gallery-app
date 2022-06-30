@@ -101,7 +101,7 @@ export const useAuth = () => {
 };
 
 //add data to the database
-export const addDataToDB = async (props) => {
+export const addDataToDB = async (props, user) => {
   const q = query(collection(db, "users"));
   const querySnapShot = await getDocs(q);
   const queryData = querySnapShot.docs.map((detail) => ({
@@ -110,7 +110,7 @@ export const addDataToDB = async (props) => {
   }));
 
   queryData.map(async (v) => {
-    await setDoc(doc(db, `users/${v.id}/likes`, props.id), {
+    await setDoc(doc(db, `users/${user.uid}/likes`, props.id), {
       ...props,
     });
   });
@@ -139,10 +139,26 @@ export const addNewCollectionToDB = async (collectionName, modal, userID) => {
     id: detail.id,
   }));
 
-  queryData.map(async (v) => {
+  queryData.map(async () => {
     await setDoc(doc(db, `users/${userID.uid}/collections/`, collectionName), {
       id: collectionName,
     });
   });
   modal(false);
+};
+
+//remove collection from database
+
+export const removeCollectionFromDB = async (props, user) => {
+  const q = query(collection(db, "users"));
+  const querySnapShot = await getDocs(q);
+  const queryData = querySnapShot.docs.map((detail) => ({
+    ...detail.data(),
+    id: detail.id,
+  }));
+
+  queryData.map(async (v) => {
+    await deleteDoc(doc(db, `users/${user?.uid}/collections`, props));
+    console.log(user?.uid);
+  });
 };

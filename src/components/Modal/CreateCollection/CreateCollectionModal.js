@@ -3,12 +3,46 @@ import CollectionInformation from "./CollectionInformation";
 import NewCollectionModal from "./NewCollectionModal";
 
 //react
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { collection, getDocs, query } from "firebase/firestore";
+import { db, useAuth } from "../../../firebase/firebaseConfig";
 
-const CreateCollectionModal = ({ setCreateCollectionModal }) => {
+const CreateCollectionModal = ({
+  setCreateCollectionModal,
+  setIsCarouselOpen,
+}) => {
   //this state will open when user wants to create new collection
   const [newCollectionPage, setNewColectionPage] = useState(false);
+
+  //get the collection data from the db
+  const [userCollections, setUserCollections] = useState([]);
+
+  const currentUser = useAuth();
+
+  useEffect(() => {
+    const getData = async (user) => {
+      const q = query(collection(db, "users"));
+      const snapshot = await getDocs(q);
+      const data = snapshot.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+
+      data.map(async () => {
+        const userCollectionQ = query(
+          collection(db, `users/${currentUser.uid}/collections`)
+        );
+        const collectionDetails = await getDocs(userCollectionQ);
+        const likeInfo = collectionDetails.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        }));
+        setUserCollections(likeInfo);
+      });
+    };
+    getData();
+  }, [currentUser]);
 
   return (
     <div className="w-full ml-auto fixed min-h-screen top-0 bg-black bg-opacity-90 z-50">
@@ -45,8 +79,14 @@ const CreateCollectionModal = ({ setCreateCollectionModal }) => {
         <h3 className="mt-12 mb-4 text-3xl font-bold text-center">
           Save to Collection
         </h3>
-        <Link to="/">
-          <span className="flex justify-center text-gray-400 underline underline-offset-1 hover:text-gray-600">
+        <Link to="/user-profile">
+          <span
+            onClick={() => {
+              setIsCarouselOpen(false);
+              setCreateCollectionModal(false);
+            }}
+            className="flex justify-center text-gray-400 underline underline-offset-1 hover:text-gray-600"
+          >
             All collections
           </span>
         </Link>
@@ -55,6 +95,10 @@ const CreateCollectionModal = ({ setCreateCollectionModal }) => {
             name="Create"
             clickHandler={() => setNewColectionPage(true)}
           />
+          {userCollections &&
+            userCollections.map((item) => (
+              <CollectionInformation name={item?.id} />
+            ))}
         </div>
       </div>
     </div>

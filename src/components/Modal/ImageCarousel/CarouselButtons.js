@@ -31,7 +31,7 @@ const CarouselButtons = ({
     } else {
       imageArrayFetch[pictureIndex].liked_by_user = true;
       setIsLikedByUser(true);
-      addDataToDB(imageArrayFetch[pictureIndex]);
+      addDataToDB(imageArrayFetch[pictureIndex], currentUser);
     }
   };
 
