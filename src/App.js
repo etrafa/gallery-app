@@ -17,6 +17,7 @@ import CreateCollectionModal from "./components/Modal/CreateCollection/CreateCol
 import UserLibrary from "./components/userProfile/UserLibrary";
 import { useAuth } from "./firebase/firebaseConfig";
 import UserLikeCarousel from "./components/userProfile/UserLikeCarousel";
+import DeleteCollectionModal from "./components/Modal/DeleteCollection/DeleteCollectionModal";
 
 function App() {
   const [query, setQuery] = useState(undefined);
@@ -36,6 +37,7 @@ function App() {
   const [isLikeCarouselOpen, setIsLikeCarouselOpen] = useState(false);
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const [createCollectionModal, setCreateCollectionModal] = useState(false);
+  const [deleteCollectionModal, setDeleteCollectionModal] = useState(false);
   const [pictureInformation, setPictureInformation] = useState();
   const [imageArrayFetch, setImageArrayFetch] = useState([]);
   const [getSinglePic, setGetSinglePic] = useState({});
@@ -86,6 +88,8 @@ function App() {
         setGetSinglePic,
         dataIndex,
         setDataIndex,
+        deleteCollectionModal,
+        setDeleteCollectionModal,
       }}
     >
       <Router>
@@ -106,6 +110,11 @@ function App() {
         {createCollectionModal && (
           <CreateCollectionModal
             setCreateCollectionModal={setCreateCollectionModal}
+          />
+        )}
+        {deleteCollectionModal && (
+          <DeleteCollectionModal
+            setDeleteCollectionModal={setDeleteCollectionModal}
           />
         )}
         <Routes>
