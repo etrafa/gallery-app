@@ -40,7 +40,7 @@ const UserLikeCarousel = ({ setIsLikeCarouselOpen }) => {
                 {getSinglePic?.user?.name}
               </span>
             </div>
-            <UserLikeCarouselButton />
+            <UserLikeCarouselButton getSinglePic={getSinglePic} />
           </div>
           <UserLikeCarouselArrows setGetSinglePic={setGetSinglePic} />
           <img

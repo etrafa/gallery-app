@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
-import { useContext } from "react";
-import { useShowLikedImageFromDB } from "../../firebase/firebaseConfig";
+import { collection, query, getDocs } from "firebase/firestore";
+import { useState, useEffect, useContext } from "react";
+import { useAuth, db } from "../../firebase/firebaseConfig";
+
 import { GalleryContext } from "../Context/GalleryContext";
 
 const UserLike = () => {
-  const { data } = useShowLikedImageFromDB();
   const {
     setIsLikeCarouselOpen,
     getSinglePic,
@@ -13,32 +13,51 @@ const UserLike = () => {
     setDataIndex,
   } = useContext(GalleryContext);
 
+  const [likedImagesDB, setLikedImagesDB] = useState([]);
+  const currentUser = useAuth();
+
   useEffect(() => {
-    setGetSinglePic(data[dataIndex]);
-    if (dataIndex >= data.length || dataIndex <= 0) {
+    const getData = async (user) => {
+      const q = query(collection(db, "users"));
+      const snapshot = await getDocs(q);
+      const data = snapshot.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+
+      data.map(async () => {
+        const likesQ = query(collection(db, `users/${currentUser.uid}/likes`));
+        const likesDetails = await getDocs(likesQ);
+        const likeInfo = likesDetails.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        }));
+        setLikedImagesDB(likeInfo);
+      });
+    };
+    getData();
+  }, [currentUser]);
+
+  useEffect(() => {
+    setGetSinglePic(likedImagesDB[dataIndex]);
+    if (dataIndex >= likedImagesDB.length || dataIndex <= 0) {
       setDataIndex(1);
     }
   }, [dataIndex]);
 
   return (
     <div>
-      <h2 className="text-center text-2xl mt-16 text-main-gray-text">
-        Liked Images <span>({data && data.length})</span>
+      <h2 className="text-center text-2xl mt-24 my-12 text-main-gray-text font-bold">
+        LIKED IMAGES ({likedImagesDB && likedImagesDB.length})
       </h2>
-      <div className="mt-12 mb-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-center mx-auto gap-4 max-w-screen-2xl">
-        {data &&
-          data.map((item, index) => (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 max-w-screen-xl mx-auto gap-4">
+        {likedImagesDB &&
+          likedImagesDB.map((item) => (
             <img
-              key={index}
-              onClick={() => {
-                setIsLikeCarouselOpen(true);
-                setDataIndex(index);
-                setGetSinglePic(data[index]);
-                console.log(getSinglePic);
-                console.log(dataIndex);
-              }}
-              className="mx-auto w-96 h-96 cursor-pointer hover:opacity-70"
-              src={item?.urls?.small}
+              onClick={() => setIsLikeCarouselOpen(true)}
+             
+              className="w-11/12 lg:w-full h-96 mx-auto my-2 cursor-pointer hover:opacity-80"
+              src={item?.urls?.regular}
               alt={item?.alt_description}
             />
           ))}
