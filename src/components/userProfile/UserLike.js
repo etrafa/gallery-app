@@ -47,14 +47,19 @@ const UserLike = () => {
 
   return (
     <div>
-      <h2 className="text-center text-2xl mt-24 my-12 text-main-gray-text font-bold">
-        LIKED IMAGES ({likedImagesDB && likedImagesDB.length})
-      </h2>
+      <h1 className="mt-36 my-12 font-bold text-center text-4xl">
+        Liked Images ({likedImagesDB && likedImagesDB.length})
+      </h1>
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 max-w-screen-xl mx-auto gap-4">
         {likedImagesDB &&
           likedImagesDB.map((item) => (
             <img
-              onClick={() => setIsLikeCarouselOpen(true)}
+              key={item.id}
+              onClick={() => {
+                setIsLikeCarouselOpen(true);
+                setGetSinglePic(item);
+              }}
               className="w-11/12 lg:w-full h-96 mx-auto my-2 cursor-pointer hover:opacity-80"
               src={item?.urls?.regular}
               alt={item?.alt_description}

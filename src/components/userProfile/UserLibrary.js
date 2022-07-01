@@ -42,17 +42,13 @@ const UserLibrary = () => {
 
   return (
     <section>
-      {userCollections.length === 0 && (
-        <h1 className="text-4xl text-center mt-36 font-bold  leading-loose">
-          We couldn't find any collections. 😢
-        </h1>
-      )}
+      <h1 className="mt-36 font-bold text-center text-4xl">My Collections</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 max-w-screen-xl justify-between gap-12 mx-auto my-24">
         {userCollections &&
           userCollections.map((doc) => (
-            <div className="relative w-80 h-80  border mx-auto rounded-xl cursor-pointer">
+            <div className="relative w-64 h-64  border mx-auto rounded-xl cursor-pointer">
               <Link to={`/collections/${doc.id}`}>
-                <div className="w-80 h-80 flex items-center justify-center">
+                <div className="w-64 h-64 flex items-center justify-center">
                   <h2 className="text-center text-3xl">{doc?.id}</h2>
                 </div>
               </Link>

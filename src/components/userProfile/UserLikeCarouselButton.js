@@ -1,10 +1,10 @@
-import { deleteLikedImageFromDB } from "../../firebase/firebaseConfig";
+import { removeDataFromDB } from "../../firebase/firebaseConfig";
 
 const UserLikeCarouselButton = ({ getSinglePic }) => {
   return (
     <div className="mr-12 flex items-center">
       <button
-        onClick={() => console.log(getSinglePic?.id)}
+        onClick={() => removeDataFromDB(getSinglePic)}
         className="flex w-32 h-12 mx-4 border text-center rounded-xl items-center justify-center hover:bg-gray-100"
       >
         <svg

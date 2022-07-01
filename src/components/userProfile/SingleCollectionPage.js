@@ -16,8 +16,6 @@ const SingleCollectionPage = () => {
 
   const { id } = useParams();
 
-  console.log(id);
-
   useEffect(() => {
     const getData = async () => {
       const q = query(collection(db, "users"));
@@ -42,8 +40,6 @@ const SingleCollectionPage = () => {
     };
     getData();
   }, [currentUser, id]);
-
-  console.log(collectionImages);
 
   return (
     <div className="mt-44">
