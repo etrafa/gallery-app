@@ -12,6 +12,7 @@ import {
   onSnapshot,
   query,
   setDoc,
+  where,
 } from "firebase/firestore";
 
 //firebase auth
@@ -162,3 +163,26 @@ export const removeCollectionFromDB = async (props, user, modal) => {
     modal(false);
   });
 };
+
+//add image to the collection
+export const addImageToCollection = async (user, colName, props) => {
+  const q = query(collection(db, "users"));
+  const querySnapShot = await getDocs(q);
+  const queryData = querySnapShot.docs.map((detail) => ({
+    ...detail.data(),
+    id: detail.id,
+  }));
+
+  queryData.map(async () => {
+    const newRef = doc(
+      collection(db, `users/${user.uid}/collections/${colName?.id}`, props.id)
+    );
+    await setDoc(newRef, {
+      ...props,
+    });
+  });
+};
+
+//remove image from the collection
+
+//show collection images on UI

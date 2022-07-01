@@ -3,6 +3,7 @@ import { useContext, useEffect } from "react";
 import { useState } from "react";
 import { db, useAuth } from "../../firebase/firebaseConfig";
 import { GalleryContext } from "../Context/GalleryContext";
+import { Link } from "react-router-dom";
 
 const UserLibrary = () => {
   const [userCollections, setUserCollections] = useState([]);
@@ -49,8 +50,12 @@ const UserLibrary = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 max-w-screen-xl justify-between gap-12 mx-auto my-12">
         {userCollections &&
           userCollections.map((doc) => (
-            <div className="w-80 h-80 border mx-auto rounded-xl flex items-center justify-center cursor-pointer relative">
-              <h2 className="text-center text-3xl">{doc?.id}</h2>
+            <div className="relative w-80 h-80  border mx-auto rounded-xl cursor-pointer">
+              <Link to={`/collections/${doc.id}`}>
+                <div className="w-80 h-80 flex items-center justify-center">
+                  <h2 className="text-center text-3xl">{doc?.id}</h2>
+                </div>
+              </Link>
               <svg
                 onClick={() => {
                   setDeleteCollectionModal(true);

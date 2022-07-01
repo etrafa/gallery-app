@@ -3,10 +3,15 @@ import CollectionInformation from "./CollectionInformation";
 import NewCollectionModal from "./NewCollectionModal";
 
 //react
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { collection, getDocs, onSnapshot, query } from "firebase/firestore";
-import { db, useAuth } from "../../../firebase/firebaseConfig";
+import {
+  addImageToCollection,
+  db,
+  useAuth,
+} from "../../../firebase/firebaseConfig";
+import { GalleryContext } from "../../Context/GalleryContext";
 
 const CreateCollectionModal = ({
   setCreateCollectionModal,
@@ -17,6 +22,8 @@ const CreateCollectionModal = ({
 
   //get the collection data from the db
   const [userCollections, setUserCollections] = useState([]);
+
+  const { pictureInformation } = useContext(GalleryContext);
 
   const currentUser = useAuth();
 
@@ -100,7 +107,12 @@ const CreateCollectionModal = ({
           />
           {userCollections &&
             userCollections.map((item) => (
-              <CollectionInformation name={item?.id} />
+              <CollectionInformation
+                clickHandler={() =>
+                  addImageToCollection(currentUser, item, pictureInformation)
+                }
+                name={item?.id}
+              />
             ))}
         </div>
       </div>

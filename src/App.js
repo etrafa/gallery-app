@@ -18,6 +18,7 @@ import UserLibrary from "./components/userProfile/UserLibrary";
 import { useAuth } from "./firebase/firebaseConfig";
 import UserLikeCarousel from "./components/userProfile/UserLikeCarousel";
 import DeleteCollectionModal from "./components/Modal/DeleteCollection/DeleteCollectionModal";
+import SingleCollectionPage from "./components/userProfile/SingleCollectionPage";
 
 function App() {
   const [query, setQuery] = useState(undefined);
@@ -136,6 +137,7 @@ function App() {
             path="/search/:query"
             element={<SearchResult query={query} />}
           />
+          <Route path="/collections/:id" element={<SingleCollectionPage />} />
           <Route element={<ImageGallery />} />
           <Route path="/my-collections" element={<UserLibrary />} />
           <Route path="/user-profile" element={<UserProfile />} />

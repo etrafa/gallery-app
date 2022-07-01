@@ -8,6 +8,7 @@ import UserLibrary from "./UserLibrary";
 const UserProfile = () => {
   const [openLikePage, setOpenLikePage] = useState(false);
   const [openUserLibrary, setOpenUserLibrary] = useState(false);
+
   return (
     <div className="mt-32">
       <UserInformation />
