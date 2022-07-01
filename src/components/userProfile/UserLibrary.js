@@ -14,7 +14,7 @@ const UserLibrary = () => {
   const currentUser = useAuth();
 
   useEffect(() => {
-    const getData = async (user) => {
+    const getData = async () => {
       const q = query(collection(db, "users"));
       const snapshot = await getDocs(q);
       const data = snapshot.docs.map((doc) => ({

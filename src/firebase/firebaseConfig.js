@@ -174,12 +174,13 @@ export const addImageToCollection = async (user, colName, props) => {
   }));
 
   queryData.map(async () => {
-    const newRef = doc(
-      collection(db, `users/${user.uid}/collections/${colName?.id}`, props.id)
+    setDoc(
+      doc(collection(db, "users", user?.uid, "collection-images"), props?.id),
+      {
+        ...props,
+        fireCategory: colName?.id,
+      }
     );
-    await setDoc(newRef, {
-      ...props,
-    });
   });
 };
 
