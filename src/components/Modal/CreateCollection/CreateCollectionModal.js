@@ -12,6 +12,7 @@ import {
   useAuth,
 } from "../../../firebase/firebaseConfig";
 import { GalleryContext } from "../../Context/GalleryContext";
+import CollectionMessage from "./CollectionMessage";
 
 const CreateCollectionModal = ({
   setCreateCollectionModal,
@@ -22,8 +23,17 @@ const CreateCollectionModal = ({
 
   //get the collection data from the db
   const [userCollections, setUserCollections] = useState([]);
-
   const { pictureInformation } = useContext(GalleryContext);
+
+  //show error / success message
+  const [showCollectionMessage, setShowCollectionMessage] = useState(false);
+
+  //when user save image to a colletion show a message, 5 secs later hide the message
+  if (showCollectionMessage) {
+    setTimeout(() => {
+      setShowCollectionMessage(false);
+    }, 5000);
+  }
 
   const currentUser = useAuth();
 
@@ -99,6 +109,7 @@ const CreateCollectionModal = ({
           >
             All collections
           </span>
+          {showCollectionMessage && <CollectionMessage />}
         </Link>
         <div className="px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 w-full my-4 pt-1 lg:h-96 overflow-auto">
           <CollectionInformation
@@ -109,7 +120,12 @@ const CreateCollectionModal = ({
             userCollections.map((item) => (
               <CollectionInformation
                 clickHandler={() =>
-                  addImageToCollection(currentUser, item, pictureInformation)
+                  addImageToCollection(
+                    currentUser,
+                    item,
+                    pictureInformation,
+                    setShowCollectionMessage
+                  )
                 }
                 name={item?.id}
               />

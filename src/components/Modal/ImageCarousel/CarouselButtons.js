@@ -43,7 +43,10 @@ const CarouselButtons = ({
 
   return (
     <div className="mr-12 flex items-center">
-      <button className="flex w-24 h-12 mx-4 border text-center rounded-xl items-center justify-center hover:bg-gray-100">
+      <button
+        onClick={() => setCreateCollectionModal(true)}
+        className="flex w-24 h-12 mx-4 border text-center rounded-xl items-center justify-center hover:bg-gray-100"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-6 w-6"
@@ -58,12 +61,7 @@ const CarouselButtons = ({
             d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"
           />
         </svg>
-        <span
-          onClick={() => setCreateCollectionModal(true)}
-          className="ml-1 text-main-gray-text font-semibold"
-        >
-          Save
-        </span>
+        <span className="ml-1 text-main-gray-text font-semibold">Save</span>
       </button>
       <button
         onClick={currentUser ? likeHandler : showModalHandler}

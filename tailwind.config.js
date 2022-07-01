@@ -13,6 +13,15 @@ module.exports = {
         "main-gray-text": "#2c343e",
         "main-heart-red": "#ff0000",
       },
+      keyframes: {
+        animationRightToLeft: {
+          "0%": { right: "2rem" },
+          "100%": { right: "4rem" },
+        },
+      },
+      animation: {
+        animationRightToLeft: "animationRightToLeft 1s linear forwards",
+      },
     },
   },
   plugins: [],

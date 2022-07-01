@@ -165,7 +165,7 @@ export const removeCollectionFromDB = async (props, user, modal) => {
 };
 
 //add image to the collection
-export const addImageToCollection = async (user, colName, props) => {
+export const addImageToCollection = async (user, colName, props, modal) => {
   const q = query(collection(db, "users"));
   const querySnapShot = await getDocs(q);
   const queryData = querySnapShot.docs.map((detail) => ({
@@ -174,13 +174,13 @@ export const addImageToCollection = async (user, colName, props) => {
   }));
 
   queryData.map(async () => {
-    setDoc(
+    await setDoc(
       doc(collection(db, "users", user?.uid, "collection-images"), props?.id),
       {
         ...props,
         fireCategory: colName?.id,
       }
-    );
+    ).then(() => modal(true));
   });
 };
 
