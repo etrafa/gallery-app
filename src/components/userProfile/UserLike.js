@@ -55,7 +55,6 @@ const UserLike = () => {
           likedImagesDB.map((item) => (
             <img
               onClick={() => setIsLikeCarouselOpen(true)}
-             
               className="w-11/12 lg:w-full h-96 mx-auto my-2 cursor-pointer hover:opacity-80"
               src={item?.urls?.regular}
               alt={item?.alt_description}

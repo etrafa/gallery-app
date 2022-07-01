@@ -47,7 +47,7 @@ const SingleCollectionPage = () => {
 
   return (
     <div className="mt-44">
-      <h2 className="text-center text-2xl mt-24 my-12 text-main-gray-text font-bold">
+      <h2 className="text-center text-5xl mt-24 my-12 text-main-gray-text font-bold">
         {id}
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 max-w-screen-xl mx-auto gap-4">
@@ -60,6 +60,11 @@ const SingleCollectionPage = () => {
             />
           ))}
       </div>
+      {collectionImages && collectionImages.length === 0 && (
+        <h2 className="text-center font-bold text-xl w-full text-gray-400 mt-24">
+          No images for this collection yet. 😢
+        </h2>
+      )}
     </div>
   );
 };

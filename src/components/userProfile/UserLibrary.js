@@ -47,7 +47,7 @@ const UserLibrary = () => {
           We couldn't find any collections. 😢
         </h1>
       )}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 max-w-screen-xl justify-between gap-12 mx-auto my-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 max-w-screen-xl justify-between gap-12 mx-auto my-24">
         {userCollections &&
           userCollections.map((doc) => (
             <div className="relative w-80 h-80  border mx-auto rounded-xl cursor-pointer">
