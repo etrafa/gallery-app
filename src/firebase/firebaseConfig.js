@@ -185,5 +185,17 @@ export const addImageToCollection = async (user, colName, props, modal) => {
 };
 
 //remove image from the collection
+export const removeImageFromCollection = async (user, props) => {
+  const q = query(collection(db, "users"));
+  const querySnapShot = await getDocs(q);
+  const queryData = querySnapShot.docs.map((detail) => ({
+    ...detail.data(),
+    id: detail.id,
+  }));
+
+  queryData.map(async () => {
+    await deleteDoc(doc(db, `users/${user?.uid}/collection-images`, props.id));
+  });
+};
 
 //show collection images on UI

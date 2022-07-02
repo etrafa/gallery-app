@@ -5,16 +5,20 @@ import {
   query,
   where,
 } from "firebase/firestore";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { db, useAuth } from "../../firebase/firebaseConfig";
+import { GalleryContext } from "../Context/GalleryContext";
 
 const SingleCollectionPage = () => {
   const currentUser = useAuth();
   const [collectionImages, setCollectionImages] = useState(null);
 
   const { id } = useParams();
+
+  const { setIsLikeCarouselOpen, dataIndex, setGetSinglePic, setDataIndex } =
+    useContext(GalleryContext);
 
   useEffect(() => {
     const getData = async () => {
@@ -41,6 +45,18 @@ const SingleCollectionPage = () => {
     getData();
   }, [currentUser, id]);
 
+  useEffect(() => {
+    setGetSinglePic(collectionImages && collectionImages[dataIndex]);
+    if (dataIndex >= collectionImages?.length || dataIndex <= 0) {
+      setDataIndex(0);
+    }
+    if (collectionImages) {
+      if (collectionImages.length === 0) {
+        setIsLikeCarouselOpen(false);
+      }
+    }
+  }, [dataIndex]);
+
   return (
     <div className="mt-44">
       <h2 className="text-center text-5xl mt-24 my-12 text-main-gray-text font-bold">
@@ -50,6 +66,11 @@ const SingleCollectionPage = () => {
         {collectionImages &&
           collectionImages.map((item) => (
             <img
+              key={item.id}
+              onClick={() => {
+                setIsLikeCarouselOpen(true);
+                setGetSinglePic(item);
+              }}
               className="w-11/12 lg:w-full h-96 mx-auto my-2 cursor-pointer hover:opacity-80"
               src={item?.urls?.regular}
               alt={item?.alt_description}

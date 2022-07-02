@@ -1,15 +1,22 @@
 import { useContext } from "react";
-import { removeDataFromDB } from "../../firebase/firebaseConfig";
+import {
+  removeDataFromDB,
+  removeImageFromCollection,
+  useAuth,
+} from "../../firebase/firebaseConfig";
 import { GalleryContext } from "../Context/GalleryContext";
 
 const UserLikeCarouselButton = ({ getSinglePic }) => {
   const { setDataIndex } = useContext(GalleryContext);
+
+  const currentUser = useAuth();
 
   return (
     <div className="mr-12 flex items-center">
       <button
         onClick={() => {
           removeDataFromDB(getSinglePic);
+          removeImageFromCollection(currentUser, getSinglePic);
           setDataIndex((prev) => prev + 1);
         }}
         className="flex w-32 h-12 mx-4 border text-center rounded-xl items-center justify-center hover:bg-gray-100"

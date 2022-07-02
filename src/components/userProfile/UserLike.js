@@ -7,7 +7,7 @@ import { GalleryContext } from "../Context/GalleryContext";
 const UserLike = () => {
   const {
     setIsLikeCarouselOpen,
-    getSinglePic,
+
     dataIndex,
     setGetSinglePic,
     setDataIndex,
@@ -43,7 +43,13 @@ const UserLike = () => {
   useEffect(() => {
     setGetSinglePic(likedImagesDB[dataIndex]);
     if (dataIndex >= likedImagesDB.length || dataIndex <= 0) {
-      setDataIndex(1);
+      setDataIndex(0);
+    }
+
+    if (likedImagesDB) {
+      if (likedImagesDB.length === 0) {
+        setIsLikeCarouselOpen(false);
+      }
     }
   }, [dataIndex]);
 
