@@ -37,9 +37,16 @@ const UserLikeCarouselButton = ({ getSinglePic }) => {
         </svg>
         <span className="ml-1 text-main-gray-text font-semibold">Remove</span>
       </button>
-      <button className="w-36 h-12 mx-4 bg-green-500 hover:bg-green-400 text-center text-white font-bold tracking-wider">
-        Download
-      </button>
+      <a
+        target="_blank"
+        rel="noreferrer"
+        href={getSinglePic?.urls?.full}
+        download={getSinglePic?.urls?.full}
+      >
+        <button className="w-36 h-12 mx-4 bg-green-500 hover:bg-green-400 text-center text-white font-bold tracking-wider">
+          Download
+        </button>
+      </a>
     </div>
   );
 };
