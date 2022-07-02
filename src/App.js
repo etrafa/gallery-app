@@ -95,6 +95,7 @@ function App() {
         setDeleteCollectionModal,
         userCollectionName,
         setUserCollectionName,
+        setCreateCollectionModal,
       }}
     >
       <Router>
@@ -132,8 +133,7 @@ function App() {
             path="/gallery"
             element={<Gallery pictures={pictures} setPictures={setPictures} />}
           />
-          {/* <Route path="/user-profile" element={<UserProfile />} /> */}
-          {/* <Route path="/search" element={<SearchResult query={query} />} /> */}
+
           <Route
             path="/search/:query"
             element={<SearchResult query={query} />}

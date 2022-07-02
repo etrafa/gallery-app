@@ -27,9 +27,10 @@ const CarouselButtons = ({
       imageArrayFetch[pictureIndex].liked_by_user = false;
       setIsLikedByUser(false);
       removeDataFromDB(imageArrayFetch[pictureIndex]);
-      console.log(imageArrayFetch[pictureIndex].id);
+      pictureInformation.liked_by_user = false;
     } else {
       imageArrayFetch[pictureIndex].liked_by_user = true;
+      pictureInformation.liked_by_user = true;
       setIsLikedByUser(true);
       addDataToDB(imageArrayFetch[pictureIndex], currentUser);
     }
@@ -41,10 +42,14 @@ const CarouselButtons = ({
     }
   };
 
+  const showCreateCollectionModal = () => {
+    setCreateCollectionModal(true);
+  };
+
   return (
     <div className="mr-12 flex items-center">
       <button
-        onClick={() => setCreateCollectionModal(true)}
+        onClick={currentUser ? showCreateCollectionModal : showModalHandler}
         className="flex w-24 h-12 mx-4 border text-center rounded-xl items-center justify-center hover:bg-gray-100"
       >
         <svg
@@ -100,5 +105,5 @@ const CarouselButtons = ({
     </div>
   );
 };
-// pictureInformation?.links?.download
+
 export default CarouselButtons;

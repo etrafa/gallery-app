@@ -99,7 +99,7 @@ const CreateCollectionModal = ({
         <h3 className="mt-12 mb-4 text-3xl font-bold text-center">
           Save to Collection
         </h3>
-        <Link to="/user-profile">
+        <Link to="/my-collections">
           <span
             onClick={() => {
               setIsCarouselOpen(false);

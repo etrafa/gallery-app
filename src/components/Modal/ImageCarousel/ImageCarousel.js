@@ -15,7 +15,7 @@ const ImageCarousel = ({ setIsCarouselOpen, setCreateCollectionModal }) => {
   useEffect(() => {
     setPictureInformation(imageArrayFetch[pictureIndex]);
     if (pictureIndex >= imageArrayFetch.length || pictureIndex <= 0) {
-      setPictureIndex(1);
+      setPictureIndex(0);
     }
 
     if (imageArrayFetch[pictureIndex]?.liked_by_user === true) {
