@@ -39,7 +39,7 @@ const NavbarComp = ({ setQuery }) => {
     <nav
       className={
         color
-          ? "w-full h-20 bg-white border-b flex justify-between items-center border-gray-50 fixed top-0 z-50 px-4 lg:px-24"
+          ? "w-full h-20 bg-white border-b flex justify-around items-center border-gray-50 fixed top-0 z-50 px-2 lg:px-24"
           : "w-full h-20 bg-transparent flex justify-between items-center border-gray-50 fixed top-0 z-50 px-4 lg:px-24"
       }
     >
@@ -49,8 +49,8 @@ const NavbarComp = ({ setQuery }) => {
       <div
         className={
           color
-            ? "relative flex items-center w-9/12 lg:w-7/12"
-            : "relative flex items-center w-9/12 lg:w-7/12 opacity-0"
+            ? "relative flex items-center w-7/12 lg:w-7/12"
+            : "relative flex items-center w-7/12 lg:w-7/12 opacity-0"
         }
       >
         <svg
@@ -75,7 +75,7 @@ const NavbarComp = ({ setQuery }) => {
           ref={searchBarRef}
           className="w-full h-12 rounded-lg bg-search-bg placeholder:text-xl pl-6"
           type="text"
-          placeholder="Search for free pictures"
+          placeholder="Search"
         />
       </div>
 
@@ -93,8 +93,7 @@ const NavbarComp = ({ setQuery }) => {
           }
         >
           <span className="w-10 h-10 text-2xl text-main-gray-text font-medium flex justify-center items-center">
-            {/* {(currentUser && currentUser?.displayName[0].toUpperCase()) || ""} */}
-            e
+            {(currentUser && currentUser?.displayName.slice(0, 1)) || ""}
           </span>
           <div className="hidden group-hover:block absolute py-4 rounded-xl top-9 z-50 w-36 -left-28  h-auto bg-white text-center">
             <ul>
@@ -117,8 +116,8 @@ const NavbarComp = ({ setQuery }) => {
           onClick={() => setOpenLoginModal(true)}
           className={
             color
-              ? "hidden lg:block  w-36 h-12 text-slate-400 font-bold border hover:bg-gray-50"
-              : "hidden lg:block  w-36 h-12 text-white font-bold hover:text-black border hover:bg-white"
+              ? "w-24 h-12 lg:mr-0 lg:w-36 lg:h-12 text-slate-400 font-bold border hover:bg-gray-50"
+              : " w-36 h-12 text-white font-bold hover:text-black border hover:bg-white"
           }
         >
           Sign Up
@@ -127,5 +126,6 @@ const NavbarComp = ({ setQuery }) => {
     </nav>
   );
 };
+// lg:w-36 lg:h-12 text-slate-400 font-bold border hover:bg-gray-50
 
 export default NavbarComp;

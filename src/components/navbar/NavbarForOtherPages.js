@@ -29,7 +29,7 @@ const NavbarForOtherPages = ({ setQuery }) => {
       <Link to="/">
         <img className="w-10 h-10 cursor-pointer" src={Logo} alt="logo" />
       </Link>
-      <div className={"relative flex items-center w-9/12 lg:w-7/12"}>
+      <div className="relative flex items-center w-6/12 lg:w-7/12">
         <svg
           onClick={() => {
             setQuery(searchBarRef.current.value);
@@ -52,7 +52,7 @@ const NavbarForOtherPages = ({ setQuery }) => {
           ref={searchBarRef}
           className="w-full h-12 rounded-lg bg-search-bg placeholder:text-xl pl-6"
           type="text"
-          placeholder="Search for free pictures"
+          placeholder="Search"
         />
       </div>
 
@@ -68,7 +68,7 @@ const NavbarForOtherPages = ({ setQuery }) => {
           }
         >
           <span className="w-10 h-10 text-2xl text-main-gray-text font-medium flex justify-center items-center">
-            e
+            {(currentUser && currentUser?.displayName.slice(0, 1)) || ""}
           </span>
           <div className="hidden group-hover:block absolute py-4 rounded-xl top-9 z-50 w-36 -left-28  h-auto bg-white text-center">
             <ul>
@@ -92,7 +92,7 @@ const NavbarForOtherPages = ({ setQuery }) => {
       ) : (
         <button
           onClick={() => setOpenLoginModal(true)}
-          className="hidden lg:block  w-36 h-12 text-slate-400 font-bold border hover:bg-gray-50"
+          className="w-24 h-12 mr-4 lg:mr-0 lg:w-36 lg:h-12 text-slate-400 font-bold border hover:bg-gray-50"
         >
           Sign Up
         </button>

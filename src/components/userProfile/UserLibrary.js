@@ -43,6 +43,13 @@ const UserLibrary = () => {
   return (
     <section>
       <h1 className="mt-36 font-bold text-center text-4xl">My Collections</h1>
+
+      {userCollections && userCollections.length === 0 && (
+        <h2 className="mt-24 text-center text-2xl text-gray-400">
+          No collection yet.😢
+        </h2>
+      )}
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 max-w-screen-xl justify-between gap-12 mx-auto my-24">
         {userCollections &&
           userCollections.map((doc) => (

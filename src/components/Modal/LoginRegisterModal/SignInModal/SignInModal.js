@@ -27,17 +27,7 @@ const SignInModal = ({ setOpenLoginModal }) => {
       <h1 className="text-center text-4xl text-main-gray-text font-bold">
         Welcome back to Retina
       </h1>
-      <button className="text-black border mx-auto flex mt-6 w-11/12 h-12 items-center rounded-lg pl-4 font-bold hover:bg-slate-100">
-        <svg
-          className="w-8 h-8 mr-7"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 448 512"
-          fill="blue"
-        >
-          <path d="M400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48z" />
-        </svg>
-        Login with Facebook
-      </button>
+
       <button
         onClick={() => signInWithGoogle(setOpenLoginModal)}
         className="text-black border mx-auto flex mt-6 w-11/12 h-12 items-center rounded-lg pl-4 font-bold hover:bg-slate-100"
@@ -68,7 +58,13 @@ const SignInModal = ({ setOpenLoginModal }) => {
         </svg>
         Login with Google
       </button>
-      <button className="text-black border mx-auto flex mt-6 w-11/12 h-12 items-center rounded-lg pl-4 font-bold hover:bg-slate-100">
+      <button
+        onClick={() => {
+          signIn("demoaccount@gmail.com", "etemlaura");
+          setOpenLoginModal(false);
+        }}
+        className="text-black border mx-auto flex mt-6 w-11/12 h-12 items-center rounded-lg pl-4 font-bold hover:bg-slate-100"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="w-7 h-7 mr-7 ml-1"

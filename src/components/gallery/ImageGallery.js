@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import {
   addDataToDB,
   removeDataFromDB,
@@ -11,7 +11,6 @@ import DownloadButtonForGallery from "./GalleryComponents/DownloadButtonForGalle
 
 const ImageGallery = ({ props, listId }) => {
   const [heartIcon, setHeartIcon] = useState(false);
-
   const currentUser = useAuth();
 
   const {
@@ -23,17 +22,18 @@ const ImageGallery = ({ props, listId }) => {
 
   // add pictures user likes to their library
 
-  const likeHandler = () => {
-    if (pictureInformation) {
-      if (pictureInformation?.liked_by_user === true) {
-        pictureInformation.liked_by_user = false;
-        setHeartIcon(false);
-        removeDataFromDB(pictureInformation);
-      } else if (pictureInformation?.liked_by_user === false) {
-        pictureInformation.liked_by_user = true;
-        setHeartIcon(true);
-        addDataToDB(pictureInformation, currentUser);
-      }
+  const likeHandler = (item) => {
+    setPictureInformation(item);
+    if (!item?.liked_by_user) {
+      item.liked_by_user = true;
+      setHeartIcon(true);
+      console.log(item.liked_by_user);
+      addDataToDB(item, currentUser);
+    } else {
+      item.liked_by_user = false;
+      setHeartIcon(false);
+      console.log(item.liked_by_user);
+      removeDataFromDB(item);
     }
   };
 
@@ -61,10 +61,11 @@ const ImageGallery = ({ props, listId }) => {
             <div className="flex mt-2 justify-between md:hidden">
               <div className="flex mb-8">
                 <span
+                  onClick={() => likeHandler(props)}
                   className={
                     heartIcon
-                      ? "border-2 bg-icon-background w-10 h-7 rounded-lg text-icon-color cursor-pointer "
-                      : " bg-heart-background w-10 h-7 pt-0.5 rounded-lg text-white cursor-pointer"
+                      ? " bg-heart-background w-10 h-7 pt-0.5 rounded-lg text-white cursor-pointer"
+                      : "border-2 bg-icon-background w-10 h-7 rounded-lg text-icon-color cursor-pointer "
                   }
                 >
                   <svg
@@ -80,11 +81,15 @@ const ImageGallery = ({ props, listId }) => {
                   </svg>
                 </span>
                 {/* add icon */}
-                <AddCollectionButtonForGallery />
+                <AddCollectionButtonForGallery
+                  clickHandler={() => setCreateCollectionModal(true)}
+                />
               </div>
-
               {/* download icon */}
-              <DownloadButtonForGallery />
+              <DownloadButtonForGallery
+                href={props?.urls?.regular}
+                download={props?.urls?.regular}
+              />
             </div>
           </div>
         </div>
@@ -107,7 +112,7 @@ const ImageGallery = ({ props, listId }) => {
           {/* //! SHOW DETAILED INFORMATION ABOUT IMAGE WHEN HOVER (FOR LARGE SCREEN) */}
           <div className="invisible group-hover:visible absolute top-6 right-2 flex justify-end">
             <span
-              onClick={likeHandler}
+              onClick={() => likeHandler(props)}
               className={
                 heartIcon
                   ? "bg-heart-background w-10 h-7 pt-0.5 rounded-lg text-white cursor-pointer"
